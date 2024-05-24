@@ -1,0 +1,124 @@
+<core:FragmentDefinition
+    xmlns:core="sap.ui.core"
+    xmlns:form="sap.ui.layout.form"
+    xmlns="sap.m"
+>
+    <Dialog
+        id="idCreateBookDialog"
+        resizable="true"
+        draggable="true"
+        contentWidth="30%"
+        title="Create Book"
+    >
+        <beginButton>
+            <Button
+                id="idCreateButton"
+                text="Create"
+                press="onCreateBook"
+                type="Success"
+            />
+        </beginButton>
+        <endButton>
+            <Button
+                id="idCancelButton"
+                text="Cancel"
+                press="onCloseBook"
+                type="Negative"
+            />
+        </endButton>
+        <content>
+            <form:SimpleForm
+                id="idBookDetailsForm"
+                editable="true"
+                layout="ResponsiveGridLayout"
+                labelSpanXL="3"
+                labelSpanL="3"
+                labelSpanM="3"
+                labelSpanS="12"
+                adjustLabelSpan="false"
+                emptySpanXL="4"
+                emptySpanL="4"
+                emptySpanM="4"
+                emptySpanS="0"
+                columnsXL="1"
+                columnsL="1"
+                columnsM="1"
+                singleContainerFullSize="false"
+            >
+                <Label
+                    id="idbookIdLabel12"
+                    text="Book_Id"
+                />
+                <Input
+                    id="idBookidInput12"
+                    placeholder="Enter Book Id"
+                    value="{localModel>/ID}"
+                />
+                <Label
+                    id="idtitleLabel12"
+                    text="Title"
+                />
+                <Input
+                    id="idtitleInput12"
+                    placeholder="Book Title"
+                    value="{localModel>/title}"
+                />
+                <Label
+                    id="idauthorLabel12"
+                    text="Author"
+                />
+                <Input
+                    id="idauthorInput12"
+                    placeholder="Enter Author Name"
+                    value="{localModel>/Author}"
+                />
+                <Label
+                    id="idISBNLabel12"
+                    text="ISBN"
+                />
+                <Input
+                    id="idISBNInput12"
+                    placeholder="Isbn NUmber"
+                    value="{localModel>/ISBN}"
+                />
+                <Label
+                    id="idgenreLabel12"
+                    text="Genre"
+                />
+                <Input
+                    id="idgenreInput12"
+                    placeholder="Enter Book Genre"
+                    value="{localModel>/genre}"
+                />
+                <Label
+                    id="idstockLabel12"
+                    text="Price"
+                />
+                <Input
+                    id="idstockInput12"
+                    placeholder="Book Price"
+                    value="{localModel>/Price}"
+                />
+                <Label
+                    id="idquantityAvailableLabel12"
+                    text="QuantityAvailable"
+                />
+                <Input
+                    id="idquantityAvailableInput12"
+                    placeholder="availability"
+                    value="{localModel>/availability}"
+                />
+                <Label
+                    id="idlanguageLabel12"
+                    text="Language"
+                />
+                <Input
+                    id="idlanguageInput12"
+                    placeholder="Enter book Language"
+                    value="{localModel>/Language}"
+                />
+ 
+            </form:SimpleForm>
+        </content>
+    </Dialog>
+</core:FragmentDefinition>
