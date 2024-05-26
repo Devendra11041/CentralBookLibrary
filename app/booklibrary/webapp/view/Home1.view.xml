@@ -56,9 +56,11 @@
                 text="Artihcus Central Library"
             />
             <Button
+                class="classregister"
                 id="_IDGenButton2"
-                text="Signup"
+                text="Register"
                 type="Emphasized"
+                press="ongoregister"
             />
             <MenuButton
                 id="_IDGenMenuButton1"

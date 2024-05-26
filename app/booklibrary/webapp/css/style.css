@@ -10,4 +10,8 @@
   padding-right: 70%;
 }
 
+.classregister .sapMDialogScrollCont {
+  background-color: #f0f5ff; /* Light blue color for the dialog content */
+}
+
 

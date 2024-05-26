@@ -59,6 +59,7 @@ sap.ui.define(
         })
         oTable.getBinding("items").filter(aFilters);
       },
+      // clear function for the multiple input tokens
       onClearPress: function () {
 
         const oView = this.getView(),
@@ -66,6 +67,10 @@ sap.ui.define(
           oAuthorFilter = oView.byId("iduserAuthorFilterValue").destroyTokens(),
           oGerneFilter = oView.byId("iduserGenreFilterValue").destroyTokens(),
           oisbnFilter = oView.byId("iduserISBNFilterValue").destroyTokens();
+      },
+      // close function for the dynamic page
+      onpageclose: function () {
+        window.history.back();
       }
     });
   }

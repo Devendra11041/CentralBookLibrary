@@ -35,6 +35,7 @@
                         id="idBtnuserDecline"
                         icon="sap-icon://decline"
                         type="Transparent"
+                        press="onpageclose"
                     />
                 </f:navigationActions>
             </f:DynamicPageTitle>

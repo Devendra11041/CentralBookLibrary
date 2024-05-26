@@ -7,13 +7,13 @@ sap.ui.define([
     "sap/ui/core/Fragment",
     "sap/m/MessageBox",
     "sap/m/MessageToast"
-    
+
 
 ],
     /**
      * @param {typeof sap.ui.core.mvc.Controller} Controller
      */
-    function (Controller,Token,Filter,FilterOperator,JSONModel,Fragment,MessageBox,MessageToast) {
+    function (Controller, Token, Filter, FilterOperator, JSONModel, Fragment, MessageBox, MessageToast) {
         "use strict";
 
         return Controller.extend("com.app.booklibrary.controller.Admin", {
@@ -41,9 +41,9 @@ sap.ui.define([
                     ID: "",
                     title: "",
                     Author: "",
-                    ISBN : "",
-                    Price:"",
-                    genre:"",
+                    ISBN: "",
+                    Price: "",
+                    genre: "",
                     Language: "",
                     availability: ""
                 });
@@ -52,7 +52,7 @@ sap.ui.define([
             },
             // Function for searching the multiple items
             onGoPress: function () {
-                        
+
                 const oView = this.getView(),
                     otitleFilter = oView.byId("idTitleFilterValue"),
                     oAuthorFilter = oView.byId("idAuthorFilterValue"),
@@ -75,7 +75,7 @@ sap.ui.define([
                 })
 
                 sGerne.filter((ele) => {
-                    ele ? aFilters.push(new Filter("genre", FilterOperator.EQ, ele.getKey())): "";
+                    ele ? aFilters.push(new Filter("genre", FilterOperator.EQ, ele.getKey())) : "";
                 })
 
                 sisbn.filter((ele) => {
@@ -86,7 +86,7 @@ sap.ui.define([
             // Clearing the multiple inputs
             onClearPress: function () {
                 const view = this.getView();
-            
+
                 if (!view) {
                     // Handle the case where the view is not available
                     return;
@@ -99,7 +99,7 @@ sap.ui.define([
                 ];
                 filterIds.forEach(filterId => {
                     const filterControl = view.byId(filterId);
-                    
+
                     if (filterControl) {
                         filterControl.removeAllTokens();
                     } else {
@@ -117,11 +117,11 @@ sap.ui.define([
                     });
                     this.getView().addDependent(this.ocreate);
                 }
-   
+
                 this.ocreate.open();
             },
-            onCloseBook: function(){
-                if(this.ocreate.isOpen()){
+            onCloseBook: function () {
+                if (this.ocreate.isOpen()) {
                     this.ocreate.close()
                 }
             },
@@ -130,7 +130,7 @@ sap.ui.define([
                 debugger
                 const oPayload = this.getView().getModel("localModel").getProperty("/"),
                     oModel = this.getView().getModel("ModelV2");
-                    
+
                 try {
                     debugger
                     await this.createData(oModel, oPayload, "/Book");
@@ -143,12 +143,12 @@ sap.ui.define([
                 }
             },
             //Delete the selected row
-            onDeleteButtonPress: async function(){
- 
+            onDeleteButtonPress: async function () {
+
                 var oSelected = this.byId("idBookTable").getSelectedItem();
                 if (oSelected) {
                     var oISBN = oSelected.getBindingContext().getObject().ID;
- 
+
                     oSelected.getBindingContext().delete("$auto").then(function () {
                         MessageToast.show(oISBN + " SuccessFully Deleted");
                     },
@@ -156,16 +156,17 @@ sap.ui.define([
                             MessageToast.show("Deletion Error: ", oError);
                         });
                     this.getView().byId("idBookTable").getBinding("items").refresh();
- 
+
                 } else {
                     MessageToast.show("Please Select a Row to Delete");
                 }
-           
+
             },
-            onclosepage: async function() {
-                // Close the page
-                window.close();
+            // close function for the dynamic page
+            onclosepage: function () {
+                window.history.back();
             }
+
         });
     }
 );
