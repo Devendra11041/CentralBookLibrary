@@ -5,18 +5,20 @@ sap.ui.define([
     "sap/ui/model/FilterOperator",
     "sap/ui/model/json/JSONModel",
     "sap/ui/core/Fragment",
-    "sap/m/MessageBox"
+    "sap/m/MessageBox",
+    "sap/m/MessageToast"
     
 
 ],
     /**
      * @param {typeof sap.ui.core.mvc.Controller} Controller
      */
-    function (Controller,Token,Filter,FilterOperator,JSONModel,Fragment,MessageBox) {
+    function (Controller,Token,Filter,FilterOperator,JSONModel,Fragment,MessageBox,MessageToast) {
         "use strict";
 
         return Controller.extend("com.app.booklibrary.controller.Admin", {
             onInit: function () {
+                //Function for loading the multiple inputs or tokens
                 const oView1 = this.getView();
                 const otitle = oView1.byId("idTitleFilterValue");
                 const oAuthor = oView1.byId("idAuthorFilterValue");
@@ -34,6 +36,7 @@ sap.ui.define([
                 oGerne.addValidator(validate);
                 oisbn.addValidator(validate);
 
+                // Creating the Json Model
                 const oLocalModel = new JSONModel({
                     ID: "",
                     title: "",
@@ -47,6 +50,7 @@ sap.ui.define([
                 this.getView().setModel(oLocalModel, "localModel");
 
             },
+            // Function for searching the multiple items
             onGoPress: function () {
                         
                 const oView = this.getView(),
@@ -79,6 +83,7 @@ sap.ui.define([
                 })
                 oTable.getBinding("items").filter(aFilters);
             },
+            // Clearing the multiple inputs
             onClearPress: function () {
                 const view = this.getView();
             
@@ -102,6 +107,7 @@ sap.ui.define([
                     }
                 });
             },
+            //Loading the create fragment
             onCreateBtnPress: async function () {
                 if (!this.ocreate) {
                     this.ocreate = await Fragment.load({
@@ -119,6 +125,7 @@ sap.ui.define([
                     this.ocreate.close()
                 }
             },
+            //Creating or adding the book 
             onCreateBook: async function () {
                 debugger
                 const oPayload = this.getView().getModel("localModel").getProperty("/"),
@@ -129,12 +136,36 @@ sap.ui.define([
                     await this.createData(oModel, oPayload, "/Book");
                     this.getView().byId("idBookTable").getBinding("items").refresh();
                     this.ocreate.close();
+                    MessageBox.success("book added successfully");
                 } catch (error) {
                     this.ocreate.close();
                     MessageBox.error("Some technical Issue");
                 }
+            },
+            //Delete the selected row
+            onDeleteButtonPress: async function(){
+ 
+                var oSelected = this.byId("idBookTable").getSelectedItem();
+                if (oSelected) {
+                    var oISBN = oSelected.getBindingContext().getObject().ID;
+ 
+                    oSelected.getBindingContext().delete("$auto").then(function () {
+                        MessageToast.show(oISBN + " SuccessFully Deleted");
+                    },
+                        function (oError) {
+                            MessageToast.show("Deletion Error: ", oError);
+                        });
+                    this.getView().byId("idBookTable").getBinding("items").refresh();
+ 
+                } else {
+                    MessageToast.show("Please Select a Row to Delete");
+                }
+           
+            },
+            onclosepage: async function() {
+                // Close the page
+                window.close();
             }
-            
         });
     }
 );

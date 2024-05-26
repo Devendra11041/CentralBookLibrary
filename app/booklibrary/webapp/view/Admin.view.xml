@@ -35,8 +35,9 @@
                         id="idBtnDecline"
                         icon="sap-icon://decline"
                         type="Transparent"
+                        press="onclosepage"
                     />
-                </f:navigationActions>
+                </f:navigationActions> 
             </f:DynamicPageTitle>
         </f:title>
         <f:header>
@@ -166,7 +167,7 @@
                             icon="sap-icon://delete"
                             tooltip="Delete Book"
                             type="Negative"
-                            press="onDeleteBtnPress"
+                            press="onDeleteButtonPress"
                         />
                     </OverflowToolbar>
                 </headerToolbar>

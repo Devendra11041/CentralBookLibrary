@@ -22,7 +22,7 @@
                 <f:expandedContent>
                     <Label
                         id="Idusersubheadins"
-                        text="Admin Dashboard"
+                        text="User Dashboard"
                     />
                 </f:expandedContent>
                 <f:navigationActions>
