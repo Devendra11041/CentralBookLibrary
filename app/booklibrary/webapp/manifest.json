@@ -144,9 +144,16 @@
         },
         {
           "name": "RouteUser",
-          "pattern": "User",
+          "pattern": "User/{ID}",
           "target": [
             "TargetUser"
+          ]
+        },
+        {
+          "name": "RouteBookData",
+          "pattern": "BookData/{BookId}",
+          "target": [
+            "TargetBookData"
           ]
         }
       ],
@@ -171,6 +178,13 @@
           "clearControlAggregation": false,
           "viewId": "User",
           "viewName": "User"
+        },
+        "TargetBookData": {
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": false,
+          "viewId": "BookData",
+          "viewName": "BookData"
         }
       }
     },

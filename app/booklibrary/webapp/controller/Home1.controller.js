@@ -2,16 +2,23 @@ sap.ui.define([
     "sap/ui/core/mvc/Controller",
     "sap/ui/core/Fragment",
     "sap/ui/model/json/JSONModel",
-    "sap/m/MessageBox"
+    "sap/m/MessageBox",
+    "sap/ui/model/Filter",
+    "sap/ui/model/FilterOperator",
+    "sap/ui/model/odata/v2/ODataModel"
 ],
     /**
      * @param {typeof sap.ui.core.mvc.Controller} Controller
      */
-    function (Controller, Fragment, JSONModel,MessageBox) {
+    function (Controller, Fragment, JSONModel, MessageBox, Filter,FilterOperator,ODataModel) {
         "use strict";
 
         return Controller.extend("com.app.booklibrary.controller.Home1", {
             onInit: function () {
+
+                var oModel = new ODataModel("/v2/CentralLibrary/");
+                this.getView().setModel(oModel);
+
                 var oModel = new sap.ui.model.json.JSONModel();
                 this.getView().setModel(oModel, "localModel");
 
@@ -71,15 +78,40 @@ sap.ui.define([
             },
             // login functionality for user and navigate to the user page
             onLoginuser: function () {
-                var oUser = this.getView().byId("iduserinput").getValue();  //get input value data in oUser variable
-                var oPwd = this.getView().byId("idpasswordinput").getValue();    //get input value data in oPwd variable
+                var oView = this.getView();
 
-                if (oUser === "user" && oPwd === "user") {
-                    const oRouter = this.getOwnerComponent().getRouter();
-                    oRouter.navTo("RouteUser")
-                } else {
-                    sap.m.MessageToast.show("Re-Enter your Details")
+                var sUsername = oView.byId("iduserinput").getValue();  //get input value data in oUser variable
+                var sPassword = oView.byId("idpasswordinput").getValue();    //get input value data in oPwd variable
+
+                if (!sUsername || !sPassword) {
+                    MessageBox.error("please enter username and password.");
+                    return
                 }
+
+                var oModel = this.getView().getModel();
+                oModel.read("/User", {
+                    filters: [
+                        new Filter("Username", FilterOperator.EQ, sUsername),
+                        new Filter("password", FilterOperator.EQ, sPassword)
+
+                    ],
+                    success: function (oData) {
+                        if (oData.results.length > 0) {
+                            var userId = oData.results[0].ID;
+
+                            MessageBox.success("Login Successful");
+
+                            var oRouter = this.getOwnerComponent().getRouter();
+                            oRouter.navTo("RouteUser", { ID: userId })
+
+                        } else {
+                            MessageBox.error("Invalid username or password.")
+                        }
+                    }.bind(this),
+                    error: function () {
+                        MessageBox.error("An error occured during login.");
+                    }
+                })
             },
             // Loading the Register Fragment
             ongoregister: async function () {
@@ -104,6 +136,7 @@ sap.ui.define([
                     console.error("Dialog is not available.");
                 }
             },
+            // accept the register details and store the details
             handleRegisterPress: async function () {
                 // Get the view and the local model
                 var oView = this.getView();

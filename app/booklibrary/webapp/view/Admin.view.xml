@@ -142,10 +142,10 @@
         <f:content>
             <Table
                 id="idBookTable"
-                mode="MultiSelect"
+                mode="SingleSelectMaster"
                 alternateRowColors="true"
                 items="{/Book}"
-                selectionChange="onSelectBook"
+                
             >
                 <headerToolbar>
                     <OverflowToolbar id="idBookTableHeader">

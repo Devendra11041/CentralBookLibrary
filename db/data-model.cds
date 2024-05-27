@@ -12,13 +12,14 @@ entity Book {
         Price        : types.Amount;
         Language     : String(20);
         total_books  : Integer;
-        availability : String
+        availability : String;
+        bookphoto    : LargeString;
 
 }
 
 entity User {
     key ID           : Integer not null;
-        name         : String(100);
+        Username     : String(100);
         email        : types.Email not null;
         address      : String;
         phone_no     : types.PhoneNumber not null;
@@ -26,4 +27,5 @@ entity User {
         DueDate      : Date;
         Active_loans : Integer;
         books        : Association to Book;
+        password     : String;
 }

@@ -1,4 +1,4 @@
-ID,title,Author,ISBN,genre,quantity,Price,Language,total_books,availability
+ID,title,Author,ISBN,genre,quantity,Price,Language,total_books,availability,bookphoto
 1,The Catcher in the Rye,J.D. Salinger,9780316769488,Coming-of-age,6,14.99,English,100,available-10
 2,The Great Gatsby,F. Scott Fitzgerald,9780743273565,Fiction,5,15.99,Telugu,100,available-78
 3,To Kill a Mockingbird,Harper Lee,9780061120084,Fiction,3,12.99,English,100,available-90

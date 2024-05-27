@@ -1,0 +1,50 @@
+<mvc:View
+    controllerName="com.app.booklibrary.controller.BookData"
+    xmlns:html="http://www.w3.org/1999/xhtml"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core"
+    displayBlock="true"
+    xmlns="sap.m"
+    xmlns:m="sap.m"
+    xmlns:form="sap.ui.layout.form"
+    xmlns:uxap="sap.uxap"
+>
+    <uxap:ObjectPageLayout
+        id="idBookDetailsObjectPage"
+        upperCaseAnchorBar="true"
+        enableLazyLoading="false"
+        useIconTabBar="true"
+        showTitleInHeaderContent="true"
+        sectionChange="onSectionChange"
+    >
+        <uxap:headerTitle>
+            <uxap:ObjectPageDynamicHeaderTitle id="idObjectPageDynamicTitle">
+                <uxap:expandedHeading>
+                    <Title
+                        id="idAuthorDetailsTitle"
+                        text="Book Details Page"
+                    />
+                </uxap:expandedHeading>
+                <uxap:expandedContent>
+                    <m:Text
+                        id="idDesig"
+                        text="Book Writer"
+                    />
+                </uxap:expandedContent>
+                <uxap:actions>
+                    <Button
+                        id="idButtonFullScreen"
+                        icon="sap-icon://full-screen"
+                        type="Transparent"
+                    />
+                    <Button
+                        id="idButtonDecline"
+                        icon="sap-icon://decline"
+                        type="Transparent"
+                        press="onclosepage"
+                    />
+                </uxap:actions>
+            </uxap:ObjectPageDynamicHeaderTitle>
+        </uxap:headerTitle>
+    </uxap:ObjectPageLayout>
+</mvc:View>

@@ -49,6 +49,9 @@ sap.ui.define([
                 });
                 this.getView().setModel(oLocalModel, "localModel");
 
+                const oTable = this.getView().byId("idBookTable");
+                oTable.attachBrowserEvent("dblclick", this.onRowDoubleClick.bind(this));
+
             },
             // Function for searching the multiple items
             onGoPress: function () {
@@ -165,8 +168,17 @@ sap.ui.define([
             // close function for the dynamic page
             onclosepage: function () {
                 window.history.back();
-            }
+            },
+            onRowDoubleClick: function () {
+                var oSelected = this.byId("idBookTable").getSelectedItem();
+                var ID = oSelected.getBindingContext().getObject().ID;
 
+                const oRouter = this.getOwnerComponent().getRouter();
+                oRouter.navTo("RouteBookData", {
+                    BookId: ID,
+
+                })
+            }
         });
     }
 );

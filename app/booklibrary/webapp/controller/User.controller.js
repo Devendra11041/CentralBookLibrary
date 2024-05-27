@@ -10,6 +10,10 @@ sap.ui.define(
 
     return Controller.extend("com.app.booklibrary.controller.User", {
       onInit: function () {
+        
+        const oRouter = this.getOwnerComponent().getRouter();
+        oRouter.attachRoutePatternMatched(this.onUserDetailsLoad, this);
+
         const oView1 = this.getView();
         const otitle = oView1.byId("iduserTitleFilterValue");
         const oAuthor = oView1.byId("iduserAuthorFilterValue");
@@ -27,6 +31,14 @@ sap.ui.define(
         oGerne.addValidator(validate);
         oisbn.addValidator(validate);
       },
+      onUserDetailsLoad: function(oEvent ){
+        const {ID} = oEvent.getParameter("arguments");
+        this.ID = ID;
+        // const sRouterName = oEvent.getParameter("name");
+        const oObjectPage = this.getView().byId("idBooks");
+
+        oObjectPage.bindElement(`/User(${ID})`);
+    },
       onGoPress: function () {
 
         const oView = this.getView(),

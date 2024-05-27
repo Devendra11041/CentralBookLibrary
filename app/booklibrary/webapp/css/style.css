@@ -1,17 +1,21 @@
-
-.page{
+.page {
   background-image: url("https://th.bing.com/th/id/R.7f3a37163071d30bb3c048d2b848857c?rik=qRY5cTTG3zDrpA&riu=http%3a%2f%2fwww.galeriemagazine.com%2fwp-content%2fuploads%2f2018%2f05%2fNYPLSelect.jpg&ehk=W01ABr2lV7cAFaPHFHMDRe8%2bTit%2fyi6AukWbJZta958%3d&risl=&pid=ImgRaw&r=0");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
   height: 100vh;
 }
-.titleID{
+
+.titleID {
   padding-right: 70%;
 }
 
 .classregister .sapMDialogScrollCont {
-  background-color: #f0f5ff; /* Light blue color for the dialog content */
+  background-color: #f0f5ff;
+  /* Light blue color for the dialog content */
 }
 
-
+.blueText {
+  color: blue;
+  font-size: 16px;
+}
