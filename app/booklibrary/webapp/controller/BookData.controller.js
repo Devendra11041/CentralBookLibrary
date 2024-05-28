@@ -21,6 +21,9 @@ sap.ui.define(
                 oForm.bindElement(`/Book(${BookId})`, {
                     //expand: 'address,personalInfo'
                 });
+            },
+            onbackpage: function () {
+                window.history.back();
             }
         });
     }

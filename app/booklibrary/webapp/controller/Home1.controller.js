@@ -10,7 +10,7 @@ sap.ui.define([
     /**
      * @param {typeof sap.ui.core.mvc.Controller} Controller
      */
-    function (Controller, Fragment, JSONModel, MessageBox, Filter,FilterOperator,ODataModel) {
+    function (Controller, Fragment, JSONModel, MessageBox, Filter, FilterOperator, ODataModel) {
         "use strict";
 
         return Controller.extend("com.app.booklibrary.controller.Home1", {
@@ -31,6 +31,8 @@ sap.ui.define([
                     rePassword: ""
                 });
             },
+            //Loading  login fragment for User
+
             loadFragment: async function (sFragmentName) {
                 const oFragment = await Fragment.load({
                     id: this.getView().getId(),
@@ -176,7 +178,6 @@ sap.ui.define([
                 // Show a success message
                 MessageBox.success("Registration Successfull");
             }
-
 
         });
     });

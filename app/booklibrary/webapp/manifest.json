@@ -155,6 +155,13 @@
           "target": [
             "TargetBookData"
           ]
+        },
+        {
+          "name": "RouteActiveLoans",
+          "pattern": "ActiveLoans",
+          "target": [
+            "TargetActiveLoans"
+          ]
         }
       ],
       "targets": {
@@ -185,6 +192,13 @@
           "clearControlAggregation": false,
           "viewId": "BookData",
           "viewName": "BookData"
+        },
+        "TargetActiveLoans": {
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": false,
+          "viewId": "ActiveLoans",
+          "viewName": "ActiveLoans"
         }
       }
     },

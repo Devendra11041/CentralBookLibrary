@@ -49,7 +49,6 @@
         id="_IDGenPage1"
         class="page"
     >
-   <Avatar src="./images/book1.jpg"></Avatar> 
         <headerContent>
             <Title
                 id="_IDGenTitle1"

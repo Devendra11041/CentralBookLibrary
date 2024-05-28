@@ -1,0 +1,19 @@
+
+<core:FragmentDefinition
+    xmlns:core="sap.ui.core"
+    xmlns:form="sap.ui.layout.form"
+    xmlns="sap.m"
+>
+    <Dialog
+        id="idborrowedBookDialog"
+        resizable="true"
+        draggable="true"
+        contentWidth="30%"
+        title="borrowed book Page"
+    >
+
+        <content>
+            
+        </content>
+    </Dialog>
+</core:FragmentDefinition>
