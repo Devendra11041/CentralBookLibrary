@@ -153,15 +153,15 @@ sap.ui.define([
                     var oISBN = oSelected.getBindingContext().getObject().ID;
 
                     oSelected.getBindingContext().delete("$auto").then(function () {
-                        MessageToast.show(oISBN + " SuccessFully Deleted");
+                        MessageBox.success(oISBN + " SuccessFully Deleted");
                     },
                         function (oError) {
-                            MessageToast.show("Deletion Error: ", oError);
+                            MessageBox.error("Deletion Error: ", oError);
                         });
                     this.getView().byId("idBookTable").getBinding("items").refresh();
 
                 } else {
-                    MessageToast.show("Please Select a Row to Delete");
+                    MessageBox.error("Please Select a Row to Delete");
                 }
 
             },
