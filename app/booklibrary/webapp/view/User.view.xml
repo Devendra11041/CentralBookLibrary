@@ -29,14 +29,10 @@
                 </f:expandedContent>
                 <f:navigationActions>
                     <Button
-                        id="idBtnuserFullScreen"
-                        icon="sap-icon://full-screen"
-                        type="Transparent"
-                    />
-                    <Button
                         id="idBtnuserDecline"
-                        icon="sap-icon://decline"
-                        type="Transparent"
+                        text="Sign Out"
+                        type="Emphasized"
+                        icon="sap-icon://log"
                         press="onpageclose"
                     />
                 </f:navigationActions>
@@ -49,7 +45,7 @@
             >
             <m:Label 
             id="idlable"
-            text="Hi{Username},Welcome to The Central Library"></m:Label>
+            text="Hi {Username},Welcome to The Central Library"></m:Label>
                 <HBox
                     id="iduserFilterHLayout"
                     alignContent="SpaceAround"

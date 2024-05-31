@@ -59,6 +59,7 @@ sap.ui.define([
                     const oRouter = this.getOwnerComponent().getRouter();
                     debugger
                     oRouter.navTo("RouteAdmin")
+                    MessageBox.success("Login Successfull");
                 } else {
                     MessageBox.error("Re-Enter your Details");
                 }

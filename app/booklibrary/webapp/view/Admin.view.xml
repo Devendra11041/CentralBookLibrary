@@ -27,14 +27,9 @@
                 </f:expandedContent>
                 <f:navigationActions>
                     <Button
-                        id="idBtnFullScreen"
-                        icon="sap-icon://full-screen"
-                        type="Transparent"
-                    />
-                    <Button
                         id="idBtnDecline"
-                        icon="sap-icon://decline"
-                        type="Transparent"
+                        type="Emphasized"
+                        text="sign Out"
                         press="onclosepage"
                     />
                 </f:navigationActions>
@@ -249,10 +244,28 @@
                             text="Genre "
                         />
                     </Column>
+                    <Column id="idtotabook">
+                        <Title
+                            id="idtotal"
+                            text="Total Books"
+                        />
+                    </Column>
                     <Column id="idavailabilityCol">
                         <Title
                             id="idavailability"
                             text="Availability"
+                        />
+                    </Column>
+                    <Column id="iduserQuanCol">
+                        <Title
+                            id="iduserQuanColTitle"
+                            text="Price (INR)"
+                        />
+                    </Column>
+                    <Column id="idlanCol">
+                        <Title
+                            id="idLanguageTitle"
+                            text="Language"
                         />
                     </Column>
                 </columns>
@@ -283,8 +296,20 @@
                                 text="{genre}"
                             />
                             <Text
+                                id="idtotalColValue"
+                                text="{total_books}"
+                            />
+                            <Text
                                 id="idAvailability"
                                 text="{availability}"
+                            />
+                            <Text
+                                id="idprice"
+                                text="{Price}"
+                            />
+                            <Text
+                                id="idlang"
+                                text="{Language}"
                             />
                         </cells>
                     </ColumnListItem>

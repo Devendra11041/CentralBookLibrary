@@ -28,11 +28,6 @@
                 </f:expandedContent>
                 <f:navigationActions>
                     <Button
-                        id="idBtnuserFullScreen"
-                        icon="sap-icon://full-screen"
-                        type="Transparent"
-                    />
-                    <Button
                         id="idBtnuserDecline"
                         icon="sap-icon://decline"
                         type="Transparent"
@@ -203,7 +198,7 @@
                     <Column id="iduserDesCol">
                         <Title
                             id="iduserDes"
-                            text="Language"
+                            text="Total Quantity"
                         />
                     </Column>
                     <Column id="idusergenreCol">
@@ -247,7 +242,7 @@
                             />
                             <Text
                                 id="iduserLangColValue"
-                                text="{Language}"
+                                text="{total_books}"
                             />
                             <Text
                                 id="idusergenre"
