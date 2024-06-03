@@ -8,6 +8,8 @@
     <Page
         id="idactiveloans"
         title="Active Loans Page"
+
+        
     >
         <Table
             id="idUserLoans"
@@ -33,6 +35,14 @@
                         type="Negative"
                         text="Close Loan"
                         press="onpresscloseLoan"
+                    />
+                    <Button
+                        id="idBtnback"
+                        icon="sap-icon://nav-back"
+                        tooltip="close"
+                        type="Emphasized"
+                        text="Back"
+                        press="onpressBack"
                     />
                 </OverflowToolbar>
             </headerToolbar>
@@ -104,6 +114,7 @@
                             text="{DueDate}"
                         />
                     </cells>
+                    
                 </ColumnListItem>
             </items>
         </Table>

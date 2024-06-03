@@ -1,6 +1,7 @@
 namespace Book.Library;
 
 using {reusable.types as types} from './reusabletypes';
+using {cuid} from '@sap/cds/common';
 
 entity Book {
     key ID           : Integer not null;
@@ -18,23 +19,28 @@ entity Book {
         //                    on users.book = $self;
         loans        : Association to many ActiveLoans
                            on loans.books = $self;
+        users        : Association to User;
 
 
 }
 
 entity User {
-    key ID       : Integer not null;
-        Username : String(100);
-        email    : types.Email not null;
-        address  : String;
-        phone_no : types.PhoneNumber not null;
+    key ID        : Integer not null;
+        Username  : String(100);
+        email     : types.Email not null;
+        address   : String;
+        phone_no  : types.PhoneNumber not null;
         // ReceiveDate  : Date;
         // DueDate      : Date;
         // Active_loans : Integer;
         // books        : Association to Book;
-        password : String;
-        loans    : Association to many ActiveLoans
-                       on loans.users = $self;
+        password  : String;
+        loans     : Association to many ActiveLoans
+                        on loans.users = $self;
+        books     : Association to many Book
+                        on books.users = $self;
+        issuebook : Association to many IssueBook
+                        on issuebook.user = $self;
 
 }
 
@@ -45,4 +51,10 @@ entity ActiveLoans {
         issuseDate : Date;
         DueDate    : Date;
 
+}
+
+entity IssueBook : cuid {
+    book         : Association to Book;
+    user         : Association to User;
+    reservedDate : Date;
 }

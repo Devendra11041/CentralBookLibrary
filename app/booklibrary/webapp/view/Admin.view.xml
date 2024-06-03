@@ -30,6 +30,7 @@
                         id="idBtnDecline"
                         type="Emphasized"
                         text="sign Out"
+                        icon="sap-icon://log"
                         press="onclosepage"
                     />
                 </f:navigationActions>

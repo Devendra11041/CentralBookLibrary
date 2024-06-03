@@ -26,8 +26,12 @@ sap.ui.define(
         window.history.back();
       },
       onPressallBooks:async function () {
+        const userId=this.ID
         const oRouter = this.getOwnerComponent().getRouter();
-        oRouter.navTo("RouteAllbooks");
+        oRouter.navTo("RouteAllbooks",
+        {
+          id:userId
+        });
     }
     });
   }
