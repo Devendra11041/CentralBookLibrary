@@ -19,6 +19,7 @@ sap.ui.define([
 
         return Controller.extend("com.app.booklibrary.controller.Admin", {
             onInit: function () {
+
                 //Function for loading the multiple inputs or tokens
                 const oView1 = this.getView();
                 const otitle = oView1.byId("idTitleFilterValue");
@@ -133,8 +134,14 @@ sap.ui.define([
             //Creating or adding the book 
             onCreateBook: async function () {
                 debugger
-                const oPayload = this.getView().getModel("localModel").getProperty("/"),
-                    oModel = this.getView().getModel("ModelV2");
+                const oPayload = this.getView().getModel("localModel").getProperty("/");
+                const isEmpty = Object.values(oPayload).some(value => value === "");
+
+                if (isEmpty) {
+                    MessageBox.error("Please fill in all fields.");
+                    return;
+                }
+                oModel = this.getView().getModel("ModelV2");
 
                 try {
                     debugger
@@ -171,6 +178,7 @@ sap.ui.define([
             onclosepage: function () {
                 window.history.back();
             },
+            //click the row you navigates to the books page
             onRowDoubleClick: function () {
                 var oSelected = this.byId("idBookTable").getSelectedItem();
                 var ID = oSelected.getBindingContext().getObject().ID;
@@ -181,6 +189,7 @@ sap.ui.define([
 
                 })
             },
+            //Routing to the active loans page
             onGoPreseeActive: async function () {
                 const oRouter = this.getOwnerComponent().getRouter();
                 oRouter.navTo("RouteActiveLoans");
@@ -279,25 +288,25 @@ sap.ui.define([
             //Issue book 
             onReservebtnpress: async function (oEvent) {
                 console.log(this.byId("issuebooksTable").getSelectedItem().getBindingContext().getObject())
-                // var oSelectedItem = oEvent.getSource().getParent();
-                // console.log(oSelectedItem)
-                // console.log(oEvent.getSource().getBindingContext().getObject())
-                // console.log(oEvent.getParameters())
-                // var oSelectedUser = oSelectedItem.getBindingContext().getObject();
                 if (this.byId("issuebooksTable").getSelectedItems().length > 1) {
                     MessageToast.show("Please Select only one Book");
                     return
                 }
-                var oSelectedBook = this.byId("issuebooksTable").getSelectedItem().getBindingContext().getObject()
-                console.log(oSelectedBook)
+                var oSelectedBook = this.byId("issuebooksTable").getSelectedItem().getBindingContext().getObject(),
+                oAval = oSelectedBook.book.availability - 1;
+                
                 var current = new Date();
-                let due = new Date(current.getFullYear(), current.getMonth() + 2)
+                let due = new Date(current.getFullYear(), current.getMonth() + 1)
 
                 const userModel = new sap.ui.model.json.JSONModel({
                     books_ID: oSelectedBook.book.ID,
                     users_ID: oSelectedBook.user.ID,
                     issuseDate: new Date(),
-                    DueDate: due
+                    DueDate: due,
+                    books: {
+                        availability: oAval
+                    }
+
                 });
                 this.getView().setModel(userModel, "userModel");
 
@@ -306,13 +315,24 @@ sap.ui.define([
 
                 try {
                     await this.createData(oModel, oPayload, "/ActiveLoans");
-                    sap.m.MessageBox.success("your reserved Book is Accepted");
+                    sap.m.MessageBox.success("Your reserved book has been accepted");
 
+                    this.byId("issuebooksTable").getSelectedItem().getBindingContext().delete("$auto");
+                    oModel.update("/Book(" + oSelectedBook.book.ID + ")", oPayload.books, {
+                        success: function () {
+                            // this.getView().byId("idBooksTable").getBinding("items").refresh();
+                            //this.oEditBooksDialog.close();
+                        },
+                        error: function (oError) {
+                            //this.oEditBooksDialog.close();
+                            sap.m.MessageBox.error("Failed to update book: " + oError.message);
+                        }.bind(this)
+                    });
                 } catch (error) {
                     //this.oCreateBooksDialog.close();
                     sap.m.MessageBox.error("Some technical Issue");
                 }
-            },
+            }
 
         });
     }

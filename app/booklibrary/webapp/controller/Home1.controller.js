@@ -97,6 +97,7 @@ sap.ui.define([
                     ],
                     success: function (oData) {
                         if (oData.results.length > 0) {
+
                             var userId = oData.results[0].ID;
 
                             MessageBox.success("Login Successful");
@@ -140,10 +141,18 @@ sap.ui.define([
             handleRegisterPress: async function () {
                 debugger
                 const oPayload = this.getView().getModel("localModel").getProperty("/"),
+                    sUsername = oPayload.Username,
                     oModel = this.getView().getModel("ModelV2");
+
 
                 try {
                     debugger
+                    const bUsernameExists = await this.checkUsernameExists(oModel, sUsername);
+
+                    if (bUsernameExists) {
+                        MessageBox.error("Username already exists. Please choose a different username.");
+                        return;
+                    }
                     await this.createData(oModel, oPayload, "/User");
                     // this.getView().byId("idBookTable").getBinding("items").refresh();
                     this.oRegister.close();
@@ -152,6 +161,19 @@ sap.ui.define([
                     this.oRegister.close();
                     MessageBox.error("Please Enter correct Details");
                 }
+            },
+            checkUsernameExists: async function (oModel, sUsername) {
+                return new Promise((resolve, reject) => {
+                    oModel.read("/User", {
+                        filters: [new Filter("Username", FilterOperator.EQ, sUsername)],
+                        success: function (oData) {
+                            resolve(oData.results.length > 0);
+                        },
+                        error: function () {
+                            reject("An error occurred while checking username existence.");
+                        }
+                    });
+                });
             }
 
         });

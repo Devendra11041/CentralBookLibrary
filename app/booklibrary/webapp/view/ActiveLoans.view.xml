@@ -8,8 +8,6 @@
     <Page
         id="idactiveloans"
         title="Active Loans Page"
-
-        
     >
         <Table
             id="idUserLoans"
@@ -84,6 +82,15 @@
                         text="Due Date"
                     />
                 </Column>
+                <Column
+                    id="idAvailColumn"
+                    visible="false"
+                >
+                    <Title
+                        id="idAvailbility"
+                        text="availability"
+                    />
+                </Column>
             </columns>
 
             <items>
@@ -113,8 +120,11 @@
                             id="idduedatevalue"
                             text="{DueDate}"
                         />
+                        <Text
+                            id="idavailabilityvalue"
+                            text="{books/availability}"
+                        />
                     </cells>
-                    
                 </ColumnListItem>
             </items>
         </Table>

@@ -8,7 +8,7 @@ sap.ui.define(
     "sap/m/MessageBox"
 
   ],
-  function (Controller, Token, Filter, FilterOperator, Fragment,MessageBox) {
+  function (Controller, Token, Filter, FilterOperator, Fragment, MessageBox) {
     "use strict";
 
     return Controller.extend("com.app.booklibrary.controller.Allbooks", {
@@ -89,8 +89,6 @@ sap.ui.define(
       },
       //Function for Reserv book 
       onReserrveBtnPress: async function (oEvent) {
-
-       
         var oSelectedItem = oEvent.getSource();
         //console.log(oSelectedItem)
         console.log(this.ID)

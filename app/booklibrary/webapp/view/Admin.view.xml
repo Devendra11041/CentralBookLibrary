@@ -206,18 +206,13 @@
                                 text="Issue Book"
                                 press="onIssueBook"
                                 icon="sap-icon://education"
-                                type="Emphasized"
+                                type="Success"
                             />
                         </HBox>
                     </OverflowToolbar>
                 </headerToolbar>
                 <columns>
-                    <!-- <Column id="idbookId">
-                        <Title
-                            id="idTextColbookId"
-                            text="Book Id"
-                        />
-                    </Column> -->
+            
                     <Column
                         id="idNameCol"
                         class="userclasscolum"
