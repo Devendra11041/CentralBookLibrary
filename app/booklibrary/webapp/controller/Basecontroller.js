@@ -24,6 +24,7 @@ sap.ui.define(
                     })
                 })
             },
+            //Function for loading the fragment
             loadFragment: async function (sFragmentName) {
                 const oFragment = await Fragment.load({
                     id: this.getView().getId(),

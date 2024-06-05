@@ -13,8 +13,10 @@ sap.ui.define(
 
     return Controller.extend("com.app.booklibrary.controller.Allbooks", {
       onInit: function () {
+        
         const oRouter = this.getOwnerComponent().getRouter();
         oRouter.attachRoutePatternMatched(this.onUserDetailsLoad, this);
+
         const oView1 = this.getView();
         const otitle = oView1.byId("iduserTitleFilterValue");
         const oAuthor = oView1.byId("iduserAuthorFilterValue");
@@ -87,7 +89,7 @@ sap.ui.define(
       onpageclose: function () {
         window.history.back();
       },
-      //Function for Reserv book 
+      //Function for USer Reserv book 
       onReserrveBtnPress: async function (oEvent) {
         var oSelectedItem = oEvent.getSource();
         //console.log(oSelectedItem)
@@ -113,7 +115,7 @@ sap.ui.define(
 
         try {
           await this.createData(oModel, oPayload, "/IssueBook");
-          MessageBox.success("Book Reserved");
+          MessageBox.success("Book Reserved successfully");
         } catch (error) {
           //this.oCreateBooksDialog.close();
           MessageBox.error("Some technical Issue");

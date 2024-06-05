@@ -20,6 +20,9 @@ sap.ui.define([
         return Controller.extend("com.app.booklibrary.controller.Admin", {
             onInit: function () {
 
+                this.oQuantity = null;
+                this.oAq = null;
+
                 //Function for loading the multiple inputs or tokens
                 const oView1 = this.getView();
                 const otitle = oView1.byId("idTitleFilterValue");
@@ -214,10 +217,11 @@ sap.ui.define([
                     var oGenre = oSelect.getBindingContext().getProperty("genre");
                     var oLanguage = oSelect.getBindingContext().getProperty("Language");
                     var oPrice = oSelect.getBindingContext().getProperty("Price");
-                    var oQuantity = oSelect.getBindingContext().getProperty("total_books");
+                    this.oQuantity = oSelect.getBindingContext().getProperty("total_books");
                     var oISBN = oSelect.getBindingContext().getProperty("ISBN");
                     var oBookname = oSelect.getBindingContext().getProperty("title");
                     var oID = oSelect.getBindingContext().getProperty("ID");
+                    this.oAq = oSelect.getBindingContext().getProperty("availability");
 
                     var newBookModel = new sap.ui.model.json.JSONModel({
                         ID: oID,
@@ -225,9 +229,10 @@ sap.ui.define([
                         genre: oGenre,
                         Language: oLanguage,
                         Price: oPrice,
-                        total_books: oQuantity,
+                        total_books: this.oQuantity,
                         ISBN: oISBN,
-                        title: oBookname
+                        title: oBookname,
+                        availability:this.oAq
 
                     });
 
@@ -238,11 +243,31 @@ sap.ui.define([
                     }
 
                     this.oedit.open();
+                    var oPayload = this.getView().getModel("newBookModel").getData();
+                    console.log(oPayload)
                 }
             },
-
+            // Saving function for edit values.
             onSavePress: function () {
+                console.log(this.oQuantity)
+                console.log(this.oAq)
+                var oQ = parseInt(this.getView().byId("totalbookInput").getValue());
+                var oAq = parseInt(this.getView().byId("availabilitynput").getValue());
+                if (this.oQuantity < oQ) {
+                    oQ = oQ - this.oQuantity
+                    oAq = oAq + oQ
+                }
+                else if (this.oQuantity > oQ) {
+                    oQ = this.oQuantity - oQ
+                    oAq = oAq - oQ
+                }
+                else {
+                    oAq = oAq
+                }
+                console.log(oQ)
                 var oPayload = this.getView().getModel("newBookModel").getData();
+                oPayload.availability = oAq
+                this.getView().getModel("newBookModel").setData(oPayload);
                 var oDataModel = this.getOwnerComponent().getModel("ModelV2");// Assuming this is your OData V2 model
                 console.log(oDataModel.getMetadata().getName());
 
@@ -280,12 +305,13 @@ sap.ui.define([
 
                 this.oissuebook.open();
             },
+            //close function for issue book fragment
             onissuebookscancelbtn: function () {
                 if (this.oissuebook.isOpen()) {
                     this.oissuebook.close()
                 }
             },
-            //Issue book 
+            //Admin Issue the book
             onReservebtnpress: async function (oEvent) {
                 console.log(this.byId("issuebooksTable").getSelectedItem().getBindingContext().getObject())
                 if (this.byId("issuebooksTable").getSelectedItems().length > 1) {
@@ -315,13 +341,12 @@ sap.ui.define([
 
                 try {
                     await this.createData(oModel, oPayload, "/ActiveLoans");
-                    sap.m.MessageBox.success("Your reserved book has been accepted");
+                    sap.m.MessageBox.success("Book Issued successfully");
 
                     this.byId("issuebooksTable").getSelectedItem().getBindingContext().delete("$auto");
                     oModel.update("/Book(" + oSelectedBook.book.ID + ")", oPayload.books, {
                         success: function () {
-                            // this.getView().byId("idBooksTable").getBinding("items").refresh();
-                            //this.oEditBooksDialog.close();
+
                         },
                         error: function (oError) {
                             //this.oEditBooksDialog.close();

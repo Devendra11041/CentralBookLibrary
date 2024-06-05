@@ -13,10 +13,8 @@ entity Book {
         Price        : types.Amount;
         Language     : String(20);
         total_books  : String;
-       availability  : Integer;
+        availability : Integer;
         bookphoto    : LargeString;
-        // users        : Association to many User
-        //                    on users.book = $self;
         loans        : Association to many ActiveLoans
                            on loans.books = $self;
         users        : Association to User;
@@ -30,10 +28,6 @@ entity User {
         email     : types.Email not null;
         address   : String;
         phone_no  : types.PhoneNumber not null;
-        // ReceiveDate  : Date;
-        // DueDate      : Date;
-        // Active_loans : Integer;
-        // books        : Association to Book;
         password  : String;
         loans     : Association to many ActiveLoans
                         on loans.users = $self;

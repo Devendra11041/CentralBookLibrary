@@ -74,8 +74,7 @@
                 id="isbnbook"
                 value="{newBookModel>/ISBN}"
                 width="100%"
-                
-            /> 
+            />
             <Label
                 id="idlabeltitle"
                 text="Title"
@@ -85,7 +84,17 @@
                 id="titleinput"
                 value="{newBookModel>/title}"
                 width="100%"
-                
+            />
+
+            <Label
+                id="idlabelavilable"
+                text="Book availability"
+                class="sapUiTinyMarginBottom"
+            />
+            <Input
+                id="availabilitynput"
+                value="{newBookModel>/availability}"
+                width="100%"
             />
         </VBox>
         <beginButton>

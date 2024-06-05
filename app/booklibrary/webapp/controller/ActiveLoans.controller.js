@@ -9,6 +9,7 @@ sap.ui.define(
       onInit: function () {
 
       },
+      //Loan closing function
       onpresscloseLoan: async function () {
         console.log(this.byId("idUserLoans").getSelectedItem().getBindingContext().getObject())
         var obj = this.byId("idUserLoans").getSelectedItem().getBindingContext().getObject(),

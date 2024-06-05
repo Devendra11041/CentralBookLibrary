@@ -21,6 +21,7 @@
                         icon="sap-icon://sys-cancel"
                         press="onissuebookscancelbtn"
                         type="Reject"
+                        text="close"
                     />
                 </contentRight>
             </Bar>
