@@ -10,7 +10,7 @@ sap.ui.define(
                 const oRouter = this.getOwnerComponent().getRouter();
                 oRouter.attachRoutePatternMatched(this.onBookDetailsLoad, this);
             },
-
+            //Loading the book details
             onBookDetailsLoad: function (oEvent) {
 
                 const { BookId } = oEvent.getParameter("arguments");
