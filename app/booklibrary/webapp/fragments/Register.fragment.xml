@@ -53,7 +53,7 @@
                 <Input
                     id="userNameInput"
                     placeholder="Enter User Name"
-                    value="{localModel>/userName}"
+                    value="{localModel>/Username}"
                 />
                 <Label
                     id="idlabelphno"
@@ -63,7 +63,7 @@
                 <Input
                     id="phoneNumberInput"
                     placeholder="Enter Phone Number"
-                    value="{localModel>/phoneNumber}"
+                    value="{localModel>/phone_no}"
                 />
                 <Label
                     id="idlabeluserEmail"
@@ -85,17 +85,6 @@
                     placeholder="Enter Password"
                     type="Password"
                     value="{localModel>/password}"
-                />
-                <Label
-                    id="idlabeluserpassword2"
-                    text="Re-enter Password"
-                    required="true"
-                />
-                <Input
-                    id="rePasswordInput"
-                    placeholder="Re-enter Password"
-                    type="Password"
-                    value="{localModel>/rePassword}"
                 />
             </form:SimpleForm>
         </content>

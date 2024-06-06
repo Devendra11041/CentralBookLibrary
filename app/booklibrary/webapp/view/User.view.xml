@@ -5,10 +5,11 @@
     xmlns:mvc="sap.ui.core.mvc"
     displayBlock="true"
     xmlns:f="sap.f"
+    xmlns:m="sap.m"
     xmlns="sap.m"
 >
     <f:DynamicPage
-        id="idBooks"
+        id="iduserpage"
         headerExpanded="true"
     >
         <f:title>
@@ -22,7 +23,7 @@
                 <f:expandedContent>
                     <Label
                         id="Idusersubheadins"
-                        text="Welcome To the Central Library {Username}"
+                        text="User Dashboard"
                         class="blueText"
                     />
                 </f:expandedContent>
@@ -38,11 +39,6 @@
                         type="Transparent"
                         press="onpageclose"
                     />
-                    <Button
-                        id="idReserve"
-                        text="Borrowed Books"
-                        type="Emphasized"
-                    />
                 </f:navigationActions>
             </f:DynamicPageTitle>
         </f:title>
@@ -51,110 +47,34 @@
                 id="iduserDynamicPageHeader"
                 pinnable="true"
             >
+            <m:Label 
+            id="idlable"
+            text="Hi{Username},Welcome to The Central Library"></m:Label>
                 <HBox
                     id="iduserFilterHLayout"
                     alignContent="SpaceAround"
                     width="100vw"
                 >
+                    <m:Avatar
+                        id="idAvatar"
+                        src=""
+                        class="sapUiTinyMarginEnd"
+                        displaySize="L"
+                    />
+
                     <VBox
-                        id="iduserTitleFilter"
+                        id="idallbooks"
                         class="sapUiSmallMarginEnd"
                     >
                         <Label
-                            id="iduserTitleFilterLabel"
-                            text="Title:"
-                        />
-                        <MultiInput
-                            id="iduserTitleFilterValue"
-                            showValueHelp="true"
-                            showTableSuggestionValueHelp="true"
-                        />
-                    </VBox>
-                    <VBox
-                        id="iduserAuthorFilter"
-                        class="sapUiSmallMarginEnd"
-                    >
-                        <Label
-                            id="iduserAuthorFilterLabel"
-                            text="Author:"
-                        />
-                        <MultiInput
-                            id="iduserAuthorFilterValue"
-                            showValueHelp="true"
-                            showTableSuggestionValueHelp="true"
-                        />
-                    </VBox>
-                    <VBox
-                        id="iduserGenreFilter"
-                        class="sapUiSmallMarginEnd"
-                    >
-                        <Label
-                            id="iduserGenreFilterLabel"
-                            text="Gerne:"
-                        />
-                        <MultiInput
-                            id="iduserGenreFilterValue"
-                            showValueHelp="true"
-                            showTableSuggestionValueHelp="true"
-                        />
-                    </VBox>
-                    <VBox
-                        id="iduserISBNFilter"
-                        class="sapUiSmallMarginEnd"
-                    >
-                        <Label
-                            id="iduserISBNFilterLabel"
-                            text="ISBN:"
-                        />
-                        <MultiInput
-                            id="iduserISBNFilterValue"
-                            showValueHelp="true"
-                            showTableSuggestionValueHelp="true"
-                        />
-                    </VBox>
-                    <VBox
-                        id="iduserGoButton"
-                        class="sapUiSmallMarginEnd"
-                    >
-                        <Label
-                            id="iduserGoButtonLabel"
+                            id="idallbooksButtonLabel"
                             text=""
                         />
                         <Button
-                            id="iduserButtongo"
-                            text="Go"
+                            id="idallbooksButtonValue"
+                            text="All Books"
                             type="Emphasized"
-                            press="onGoPress"
-                        />
-                    </VBox>
-                    <VBox
-                        id="iduserClearFilterButton"
-                        class="sapUiSmallMarginEnd"
-                    >
-                        <Label
-                            id="iduserClearFilterButtonLabel"
-                            text=""
-                        />
-                        <Button
-                            id="iduserClearFilterButtonValue"
-                            text="Clear"
-                            type="Emphasized"
-                            press="onClearPress"
-                        />
-                    </VBox>
-                    <VBox
-                        id="idreserve"
-                        class="sapUiSmallMarginEnd"
-                    >
-                        <Label
-                            id="idreserveButtonLabel"
-                            text=""
-                        />
-                        <Button
-                            id="idreserveButtonValue"
-                            text="Reserve"
-                            type="Emphasized"
-                            press="onPressReserve"
+                            press="onPressallBooks"
                         />
                     </VBox>
                 </HBox>
@@ -162,112 +82,79 @@
         </f:header>
         <f:content>
             <Table
-                id="iduserBookTable"
-                mode="SingleSelectMaster"
+                id="idUserborrowed"
+                alternateRowColors="true"
+                backgroundDesign="Transparent"
                 growing="true"
                 growingThreshold="5"
-                alternateRowColors="true"
-                items="{path:'/Book',parameters:{
-                    $count:true
-                }}"
-                selectionChange="onSelectBook"
+                items="{loans}"
+                mode="MultiSelect"
+                class="classactiveloan"
             >
                 <headerToolbar>
-                    <OverflowToolbar id="iduserBookTableHeader">
+                    <OverflowToolbar id="idBookTableHeader">
                         <Title
-                            id="iduserTableHeaderTitle"
-                            text="Availble Stock :{/Book/$count} Books"
+                            id="idTableHeaderTitle"
+                            text="Borrowed Books"
                         />
-                        <ToolbarSpacer id="iduserTableHeaderSpacer" />
+                        <ToolbarSpacer id="idTableHeaderSpacer1" />
                     </OverflowToolbar>
                 </headerToolbar>
                 <columns>
-                    <Column id="iduserbookId">
+                    <Column id="idISBNColumn11">
                         <Title
-                            id="iduserTextColbookId"
-                            text="Book Id"
-                        />
-                    </Column>
-                    <Column id="iduserNameCol">
-                        <Title
-                            id="iduserTextColTitle"
+                            id="idISBNtitle11"
                             text="ISBN"
                         />
                     </Column>
-                    <Column id="idusertitleCol">
+                    <Column id="idtitleColumn11">
                         <Title
-                            id="iduserTitle"
+                            id="idBooktitletitle11"
                             text="Title"
                         />
                     </Column>
-                    <Column id="iduserAuthorCol">
+                    <Column id="idBooksidColumn11">
                         <Title
-                            id="iduserAuthor"
-                            text="Author"
+                            id="idBooksidtitle11"
+                            text="Books_id"
                         />
                     </Column>
-                    <Column id="iduserQuanCol">
+
+                    <Column id="idIssueColumn11">
                         <Title
-                            id="iduserQuanColTitle"
-                            text="Price"
+                            id="idIssuetitle11"
+                            text="Issue date"
                         />
                     </Column>
-                    <Column id="iduserDesCol">
+                    <Column id="idDueDateColumn11">
                         <Title
-                            id="iduserDes"
-                            text="Language"
-                        />
-                    </Column>
-                    <Column id="idusergenreCol">
-                        <Title
-                            id="idusersta"
-                            text="Genre "
-                        />
-                    </Column>
-                    <Column id="iduseravailabilityCol">
-                        <Title
-                            id="iduseravailability"
-                            text="Availability"
+                            id="idDuedatetitle11"
+                            text="Due Date"
                         />
                     </Column>
                 </columns>
                 <items>
-                    <ColumnListItem
-                        id="iduserTableColListItem"
-                        type="Navigation"
-                    >
+                    <ColumnListItem id="idColumnListBarrowedbooks">
                         <cells>
                             <Text
-                                id="iduserBookid"
-                                text="{ID}"
+                                id="idLoanIdvalue11"
+                                text="{books/ISBN}"
                             />
                             <Text
-                                id="iduserISBNColValue"
-                                text="{ISBN}"
+                                id="idBOOKTILTEvalue11"
+                                text="{books/title}"
                             />
                             <Text
-                                id="idusertitleColValue"
-                                text="{title}"
+                                id="idbooksIdvalue11"
+                                text="{books_ID}"
                             />
                             <Text
-                                id="iduserAuthorColValue"
-                                text="{Author}"
+                                id="idIssusedatevalue11"
+                                text="{issuseDate}"
                             />
                             <Text
-                                id="iduserPriceColValue"
-                                text="{Price}"
-                            />
-                            <Text
-                                id="iduserLangColValue"
-                                text="{Language}"
-                            />
-                            <Text
-                                id="idusergenre"
-                                text="{genre}"
-                            />
-                            <Text
-                                id="iduserAvailability"
-                                text="{availability}"
+                                id="idduedatevalue11"
+                                text="{DueDate}"
                             />
                         </cells>
                     </ColumnListItem>

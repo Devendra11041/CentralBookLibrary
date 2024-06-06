@@ -1,5 +1,5 @@
 sap.ui.define([
-    "sap/ui/core/mvc/Controller",
+    "./Basecontroller",
     "sap/ui/core/Fragment",
     "sap/ui/model/json/JSONModel",
     "sap/m/MessageBox",
@@ -19,17 +19,14 @@ sap.ui.define([
                 var oModel = new ODataModel("/v2/CentralLibrary/");
                 this.getView().setModel(oModel);
 
-                var oModel = new sap.ui.model.json.JSONModel();
-                this.getView().setModel(oModel, "localModel");
-
                 // Optionally, you can set initial data to the model
-                oModel.setData({
-                    userName: "",
-                    phoneNumber: "",
+                const oLocalModel = new JSONModel({
+                    Username: "",
+                    phone_no: "",
                     email: "",
-                    password: "",
-                    rePassword: ""
+                    password: ""
                 });
+                this.getView().setModel(oLocalModel, "localModel");
             },
             //Loading  login fragment for User
 
@@ -140,43 +137,20 @@ sap.ui.define([
             },
             // accept the register details and store the details
             handleRegisterPress: async function () {
-                // Get the view and the local model
-                var oView = this.getView();
-                var oModel = oView.getModel("localModel");
+                debugger
+                const oPayload = this.getView().getModel("localModel").getProperty("/"),
+                    oModel = this.getView().getModel("ModelV2");
 
-                // Get the registration data from the input fields
-                var sUserName = oView.byId("userNameInput").getValue();
-                var sPhoneNumber = oView.byId("phoneNumberInput").getValue();
-                var sEmail = oView.byId("emailInput").getValue();
-                var sPassword = oView.byId("passwordInput").getValue();
-                var sRePassword = oView.byId("rePasswordInput").getValue();
-
-                // Perform validation
-                if (!sUserName || !sPhoneNumber || !sEmail || !sPassword || !sRePassword) {
-                    MessageBox.error("Please fill in all fields");
-                    return;
+                try {
+                    debugger
+                    await this.createData(oModel, oPayload, "/User");
+                    // this.getView().byId("idBookTable").getBinding("items").refresh();
+                    this.oRegister.close();
+                    MessageBox.success("Successfully completed your Registration");
+                } catch (error) {
+                    this.oRegister.close();
+                    MessageBox.error("Please Enter correct Details");
                 }
-
-                if (sPassword !== sRePassword) {
-                    MessageBox.error("Password does not match, Please Try again");
-                    return;
-                }
-
-                // Store the registration data in the local model
-                oModel.setProperty("/userName", sUserName);
-                oModel.setProperty("/phoneNumber", sPhoneNumber);
-                oModel.setProperty("/email", sEmail);
-                oModel.setProperty("/password", sPassword);
-
-                // Optionally, you can clear the input fields after registration
-                oView.byId("userNameInput").setValue("");
-                oView.byId("phoneNumberInput").setValue("");
-                oView.byId("emailInput").setValue("");
-                oView.byId("passwordInput").setValue("");
-                oView.byId("rePasswordInput").setValue("");
-
-                // Show a success message
-                MessageBox.success("Registration Successfull");
             }
 
         });
