@@ -23,16 +23,17 @@ sap.ui.define(
       },
       // close function for the dynamic page
       onpageclose: function () {
-        window.history.back();
+        var oRouter = this.getOwnerComponent().getRouter();
+        oRouter.navTo("RouteHome1", {}, true);
       },
-      onPressallBooks:async function () {
-        const userId=this.ID
+      onPressallBooks: async function () {
+        const userId = this.ID
         const oRouter = this.getOwnerComponent().getRouter();
         oRouter.navTo("RouteAllbooks",
-        {
-          id:userId
-        });
-    }
+          {
+            id: userId
+          });
+      }
     });
   }
 );

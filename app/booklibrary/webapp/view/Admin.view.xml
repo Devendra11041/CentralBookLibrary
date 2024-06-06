@@ -28,7 +28,7 @@
                 <f:navigationActions>
                     <Button
                         id="idBtnDecline"
-                        type="Emphasized"
+                        type="Negative"
                         text="sign Out"
                         icon="sap-icon://log"
                         press="onclosepage"
