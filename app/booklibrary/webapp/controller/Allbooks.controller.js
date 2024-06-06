@@ -97,7 +97,7 @@ sap.ui.define(
         console.log(oEvent.getSource().getParent())
         var userId = this.ID
         if (this.byId("iduserBookTable").getSelectedItems().length > 1) {
-          MessageToast.show("Please Select only one Book");
+          MessageBox.error("Please Select only one Book");
           return
         }
         var oSelectedBook = this.byId("iduserBookTable").getSelectedItem().getBindingContext().getObject()

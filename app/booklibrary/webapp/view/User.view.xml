@@ -31,7 +31,7 @@
                     <Button
                         id="idBtnuserDecline"
                         text="Sign Out"
-                        type="Emphasized"
+                        type="Negative"
                         icon="sap-icon://log"
                         press="onpageclose"
                     />
@@ -42,38 +42,65 @@
             <f:DynamicPageHeader
                 id="iduserDynamicPageHeader"
                 pinnable="true"
+                class="classuserpage"
             >
-            <m:Label 
-            id="idlable"
-            text="Hi {Username},Welcome to The Central Library"></m:Label>
-                <HBox
-                    id="iduserFilterHLayout"
-                    alignContent="SpaceAround"
-                    width="100vw"
-                >
-                    <m:Avatar
-                        id="idAvatar"
-                        src=""
-                        class="sapUiTinyMarginEnd"
-                        displaySize="L"
-                    />
+                <m:Label
+                    class="largeLabel"
+                    id="idlable"
+                    text="Hi {Username}, Welcome to The Central Library"
+                />
+                <HBox>
+                    <VBox
+                        id="iduserFilterHLayout"
+                        alignContent="SpaceAround"
+                        width="100vw"
+                    >
+                        <m:Avatar
+                            id="idAvatar"
+                            src=""
+                            class="sapUiTinyMarginEnd"
+                            displaySize="L"
+                        />
+                    </VBox>
 
                     <VBox
                         id="idallbooks"
-                        class="sapUiSmallMarginEnd"
+                        class="uservboxcalss"
                     >
-                        <Label
-                            id="idallbooksButtonLabel"
-                            text=""
-                        />
-                        <Button
-                            id="idallbooksButtonValue"
-                            text="All Books"
-                            type="Emphasized"
-                            press="onPressallBooks"
-                        />
+                        <m:HBox id="iduserhbox">
+                            <m:VBox
+                                id="iduservbox"
+                                class="classuservbox"
+                            >
+                                <m:Label
+                                    id="idusername"
+                                    text="User Nme: {Username}"
+                                />
+                                <m:Label
+                                    id="idusermail"
+                                    text="Email: {email}"
+                                />
+                            </m:VBox>
+                        </m:HBox>
                     </VBox>
                 </HBox>
+
+                <Label
+                    id="iduseremailLabel"
+                    text=""
+                />
+                <FlexBox
+                    id="idflexbox"
+                    justifyContent="End"
+                >
+                    <Button
+                        class="classuserbtn"
+                        id="idusereremailValue"
+                        text="All Books"
+                        type="Emphasized"
+                        press="onPressallBooks"
+                    />
+                </FlexBox>
             </f:DynamicPageHeader>
         </f:header>
         <f:content>

@@ -179,7 +179,8 @@ sap.ui.define([
             },
             // close function for the dynamic page
             onclosepage: function () {
-                window.history.back();
+                var oRouter = this.getOwnerComponent().getRouter();
+                oRouter.navTo("RouteHome1", {}, true);
             },
             //click the row you navigates to the books page
             onRowDoubleClick: function () {
@@ -232,7 +233,7 @@ sap.ui.define([
                         total_books: this.oQuantity,
                         ISBN: oISBN,
                         title: oBookname,
-                        availability:this.oAq
+                        availability: this.oAq
 
                     });
 
@@ -319,8 +320,8 @@ sap.ui.define([
                     return
                 }
                 var oSelectedBook = this.byId("issuebooksTable").getSelectedItem().getBindingContext().getObject(),
-                oAval = oSelectedBook.book.availability - 1;
-                
+                    oAval = oSelectedBook.book.availability - 1;
+
                 var current = new Date();
                 let due = new Date(current.getFullYear(), current.getMonth() + 1)
 

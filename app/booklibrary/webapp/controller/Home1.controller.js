@@ -143,10 +143,7 @@ sap.ui.define([
                 const oPayload = this.getView().getModel("localModel").getProperty("/"),
                     sUsername = oPayload.Username,
                     oModel = this.getView().getModel("ModelV2");
-
-
                 try {
-                    debugger
                     const bUsernameExists = await this.checkUsernameExists(oModel, sUsername);
 
                     if (bUsernameExists) {
@@ -154,7 +151,6 @@ sap.ui.define([
                         return;
                     }
                     await this.createData(oModel, oPayload, "/User");
-                    // this.getView().byId("idBookTable").getBinding("items").refresh();
                     this.oRegister.close();
                     MessageBox.success("Successfully completed your Registration");
                 } catch (error) {

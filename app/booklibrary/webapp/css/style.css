@@ -16,7 +16,7 @@
 }
 
 .blueText {
-  color: blue;
+  color: rgb(24, 6, 220);
   font-size: 16px;
 }
 
@@ -29,3 +29,22 @@
 .classusertable{
   background-color:rgb(244, 216, 197)
 }
+
+.largeLabel {
+  font-size: 100%; 
+  color: rgb(243, 27, 35);
+}
+/* .classuserpage{
+  background-color:rgb(192, 23, 62)
+} */
+.uservboxcalss{
+  padding-right: 70%;
+}
+
+.classuservbox{
+  padding-top: 10%;
+}
+.classuserbtn{
+  padding-left:50%;
+}
+
