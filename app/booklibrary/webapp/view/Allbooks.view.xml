@@ -138,7 +138,7 @@
         <f:content>
             <Table
                 id="iduserBookTable"
-                mode="SingleSelectMaster"
+                mode="MultiSelect"
                 growing="true"
                 growingThreshold="5"
                 alternateRowColors="true"
@@ -159,7 +159,7 @@
                             icon="sap-icon://add-coursebook"
                             tooltip="Create Book"
                             text="Reserve Book"
-                            type="Emphasized"
+                            type="Success"
                             press="onReserrveBtnPress"
                         />
                     </OverflowToolbar>

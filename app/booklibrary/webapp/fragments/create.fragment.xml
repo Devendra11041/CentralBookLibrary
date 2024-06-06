@@ -119,6 +119,15 @@
                     placeholder="Enter book Language"
                     value="{localModel>/Language}"
                 />
+                <Label
+                    id="idAvailabilityLabel"
+                    text="Availability"
+                />
+                <Input
+                    id="idAvailabilityInput"
+                    placeholder="Enter book Availability"
+                    value="{localModel>/availability}"
+                />
  
             </form:SimpleForm>
         </content>

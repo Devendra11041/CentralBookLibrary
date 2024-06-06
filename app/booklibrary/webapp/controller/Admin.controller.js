@@ -46,7 +46,8 @@ sap.ui.define([
                     Price: "",
                     genre: "",
                     Language: "",
-                    total_books: ""
+                    total_books: "",
+                    availability: ""
                 });
                 this.getView().setModel(oLocalModel, "localModel");
 
@@ -184,76 +185,135 @@ sap.ui.define([
                 const oRouter = this.getOwnerComponent().getRouter();
                 oRouter.navTo("RouteActiveLoans");
             },
-            //loading the edit fragment
-            onEditPress: async function () {
-                var oTable = this.byId("idBookTable");
-                var oSelectedItem = oTable.getSelectedItem();
-
-                if (!oSelectedItem) {
-                    sap.m.MessageToast.show("Please select a row to edit.");
-                    return;
-                }
-                var oSelectedData = oSelectedItem.getBindingContext().getObject();
-
-                if (!this.oedit) {
-                    this.oedit = await Fragment.load({
-                        id: this.getView().getId(),
-                        name: "com.app.booklibrary.fragments.edit",
-                        controller: this
-                    });
-                    this.getView().addDependent(this.oedit);
-                }
-
-                // Set the model with selected row data
-                var oModel = new sap.ui.model.json.JSONModel(oSelectedData);
-                this.oedit.setModel(oModel, "editModel");
-
-                this.oedit.open();
-            },
+            //Closing the edit fragment
             onCancelPress: function () {
                 if (this.oedit.isOpen()) {
                     this.oedit.close()
                 }
 
             },
+            //loading the edit fragment
+            onEditPress: async function () {
+                var oSelected = this.byId("idBookTable").getSelectedItems();
+                if (oSelected.length === 0) {
+                    MessageBox.error("Please Select atleast one Book to Edit");
+                    return
+                }
+                var oSelect = oSelected[0]
+                if (oSelect) {
+                    var oAuthor = oSelect.getBindingContext().getProperty("Author");
+                    var oGenre = oSelect.getBindingContext().getProperty("genre");
+                    var oLanguage = oSelect.getBindingContext().getProperty("Language");
+                    var oPrice = oSelect.getBindingContext().getProperty("Price");
+                    var oQuantity = oSelect.getBindingContext().getProperty("total_books");
+                    var oISBN = oSelect.getBindingContext().getProperty("ISBN");
+                    var oBookname = oSelect.getBindingContext().getProperty("title");
+                    var oID = oSelect.getBindingContext().getProperty("ID");
+
+                    var newBookModel = new sap.ui.model.json.JSONModel({
+                        ID: oID,
+                        Author: oAuthor,
+                        genre: oGenre,
+                        Language: oLanguage,
+                        Price: oPrice,
+                        total_books: oQuantity,
+                        ISBN: oISBN,
+                        title: oBookname
+
+                    });
+
+                    this.getView().setModel(newBookModel, "newBookModel");
+
+                    if (!this.oedit) {
+                        this.oedit = await this.loadFragment("edit"); // Load your fragment asynchronously
+                    }
+
+                    this.oedit.open();
+                }
+            },
+
             onSavePress: function () {
-                // Get the view and table
-                var oView = this.getView();
-                var oTable = oView.byId("idBookTable");
+                var oPayload = this.getView().getModel("newBookModel").getData();
+                var oDataModel = this.getOwnerComponent().getModel("ModelV2");// Assuming this is your OData V2 model
+                console.log(oDataModel.getMetadata().getName());
 
-                // Get the selected item
-                var oSelectedItem = oTable.getSelectedItem();
-
-                if (!oSelectedItem) {
-                    console.error("No row selected.");
-                    return;
+                try {
+                    // Assuming your update method is provided by your OData V2 model
+                    oDataModel.update("/Book(" + oPayload.ID + ")", oPayload, {
+                        success: function () {
+                            this.getView().byId("idBookTable").getBinding("items").refresh();
+                            this.oedit.close();
+                            MessageBox.success("Book Data Updated successfully")
+                        }.bind(this),
+                        error: function (oError) {
+                            this.oedit.close();
+                            sap.m.MessageBox.error("Failed to update book: " + oError.message);
+                        }.bind(this)
+                    });
+                } catch (error) {
+                    this.oedit.close();
+                    sap.m.MessageBox.error("Some technical Issue");
                 }
 
-                // Get the binding context of the selected item
-                var oContext = oSelectedItem.getBindingContext();
 
-                // Get the edited data from the dialog
-                var oEditedData = {
-                    Author: oView.byId("authorInput").getValue(),
-                    Genre: oView.byId("genreInput").getValue(),
-                    Language: oView.byId("languageInput").getValue(),
-                    Price: parseFloat(oView.byId("priceInput").getValue()),
-                    total_books: parseInt(oView.byId("pricebook").getValue())
-                };
-
-                // Update specific properties of the selected row
-                oContext.getModel().setProperty(oContext.getPath() + "/Author", oEditedData.Author);
-                oContext.getModel().setProperty(oContext.getPath() + "/Genre", oEditedData.Genre);
-                oContext.getModel().setProperty(oContext.getPath() + "/Language", oEditedData.Language);
-                oContext.getModel().setProperty(oContext.getPath() + "/Price", oEditedData.Price);
-                oContext.getModel().setProperty(oContext.getPath() + "/total_books", oEditedData.total_books);
-
-                // Close the dialog
-                var oDialog = oView.byId("editDialog");
-                if (oDialog.isOpen()) {
-                    oDialog.close();
+                var oDataModel = new sap.ui.model.odata.v2.ODataModel({
+                    serviceUrl: "https://port4004-workspaces-ws-rntqs.us10.trial.applicationstudio.cloud.sap/v2/CentralLibrary",
+                    defaultBindingMode: sap.ui.model.BindingMode.TwoWay,
+                    // Configure message parser
+                    messageParser: sap.ui.model.odata.ODataMessageParser
+                })
+            },
+            // Loading function for issubook fragment
+            onIssueBook: async function () {
+                if (!this.oissuebook) {
+                    this.oissuebook = await this.loadFragment("issuebook");
                 }
-            }
+
+                this.oissuebook.open();
+            },
+            onissuebookscancelbtn: function () {
+                if (this.oissuebook.isOpen()) {
+                    this.oissuebook.close()
+                }
+            },
+            //Issue book 
+            onReservebtnpress: async function (oEvent) {
+                console.log(this.byId("issuebooksTable").getSelectedItem().getBindingContext().getObject())
+                // var oSelectedItem = oEvent.getSource().getParent();
+                // console.log(oSelectedItem)
+                // console.log(oEvent.getSource().getBindingContext().getObject())
+                // console.log(oEvent.getParameters())
+                // var oSelectedUser = oSelectedItem.getBindingContext().getObject();
+                if (this.byId("issuebooksTable").getSelectedItems().length > 1) {
+                    MessageToast.show("Please Select only one Book");
+                    return
+                }
+                var oSelectedBook = this.byId("issuebooksTable").getSelectedItem().getBindingContext().getObject()
+                console.log(oSelectedBook)
+                var current = new Date();
+                let due = new Date(current.getFullYear(), current.getMonth() + 2)
+
+                const userModel = new sap.ui.model.json.JSONModel({
+                    books_ID: oSelectedBook.book.ID,
+                    users_ID: oSelectedBook.user.ID,
+                    issuseDate: new Date(),
+                    DueDate: due
+                });
+                this.getView().setModel(userModel, "userModel");
+
+                const oPayload = this.getView().getModel("userModel").getProperty("/"),
+                    oModel = this.getView().getModel("ModelV2");
+
+                try {
+                    await this.createData(oModel, oPayload, "/ActiveLoans");
+                    sap.m.MessageBox.success("your reserved Book is Accepted");
+
+                } catch (error) {
+                    //this.oCreateBooksDialog.close();
+                    sap.m.MessageBox.error("Some technical Issue");
+                }
+            },
+
         });
     }
 );

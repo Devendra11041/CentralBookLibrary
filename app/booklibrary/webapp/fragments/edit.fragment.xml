@@ -17,7 +17,7 @@
             />
             <Input
                 id="authorInput"
-                value="{editModel>/Author}"
+                value="{newBookModel>/Author}"
                 width="100%"
             />
 
@@ -28,7 +28,7 @@
             />
             <Input
                 id="genreInput"
-                value="{editModel>/genre}"
+                value="{newBookModel>/genre}"
                 width="100%"
             />
 
@@ -39,7 +39,7 @@
             />
             <Input
                 id="languageInput"
-                value="{editModel>/Language}"
+                value="{newBookModel>/Language}"
                 width="100%"
             />
 
@@ -50,20 +50,42 @@
             />
             <Input
                 id="priceInput"
-                value="{editModel>/Price}"
+                value="{newBookModel>/Price}"
                 width="100%"
                 type="Number"
             />
             <Label
-                id="idlablebook"
-                text="Total Book"
+                id="idlabtotalbook"
+                text="Total Books"
                 class="sapUiTinyMarginBottom"
             />
             <Input
-                id="pricebook"
-                value="{editModel>/total_books}"
+                id="totalbookInput"
+                value="{newBookModel>/total_books}"
                 width="100%"
                 type="Number"
+            />
+            <Label
+                id="idISBN"
+                text="ISBN"
+                class="sapUiTinyMarginBottom"
+            />
+            <Input
+                id="isbnbook"
+                value="{newBookModel>/ISBN}"
+                width="100%"
+                
+            /> 
+            <Label
+                id="idlabeltitle"
+                text="Title"
+                class="sapUiTinyMarginBottom"
+            />
+            <Input
+                id="titleinput"
+                value="{newBookModel>/title}"
+                width="100%"
+                
             />
         </VBox>
         <beginButton>
