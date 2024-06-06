@@ -101,12 +101,14 @@
                 />
                 <Label
                     id="idquantityAvailableLabel12"
-                    text="QuantityAvailable"
+                    text="Total Books"
+                
                 />
                 <Input
                     id="idquantityAvailableInput12"
-                    placeholder="availability"
-                    value="{localModel>/availability}"
+                    placeholder="Total Books"
+                    type="Number"
+                    value="{localModel>/total_books}"
                 />
                 <Label
                     id="idlanguageLabel12"

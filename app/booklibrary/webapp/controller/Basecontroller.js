@@ -8,6 +8,7 @@ sap.ui.define(
       return BaseController.extend("com.app.booklibrary.controller.Basecontroller", {
         onInit: function() {
         },
+        //Performing curd operations
         createData: function(oModel, oPayload, sPath){
             return new Promise((resolve, reject) => {
                 oModel.create(sPath, oPayload, {

@@ -6,6 +6,7 @@ sap.ui.define([
     "sap/ui/model/json/JSONModel",
     "sap/ui/core/Fragment",
     "sap/m/MessageBox",
+    "sap/ui/model/odata/v2/ODataModel",
     "sap/m/MessageToast"
 
 
@@ -13,7 +14,7 @@ sap.ui.define([
     /**
      * @param {typeof sap.ui.core.mvc.Controller} Controller
      */
-    function (Controller, Token, Filter, FilterOperator, JSONModel, Fragment, MessageBox, MessageToast) {
+    function (Controller, Token, Filter, FilterOperator, JSONModel, Fragment, MessageBox, ODataModel, MessageToast) {
         "use strict";
 
         return Controller.extend("com.app.booklibrary.controller.Admin", {
@@ -45,7 +46,7 @@ sap.ui.define([
                     Price: "",
                     genre: "",
                     Language: "",
-                    availability: ""
+                    total_books: ""
                 });
                 this.getView().setModel(oLocalModel, "localModel");
 
@@ -182,8 +183,77 @@ sap.ui.define([
             onGoPreseeActive: async function () {
                 const oRouter = this.getOwnerComponent().getRouter();
                 oRouter.navTo("RouteActiveLoans");
-            }
+            },
+            //loading the edit fragment
+            onEditPress: async function () {
+                var oTable = this.byId("idBookTable");
+                var oSelectedItem = oTable.getSelectedItem();
 
+                if (!oSelectedItem) {
+                    sap.m.MessageToast.show("Please select a row to edit.");
+                    return;
+                }
+                var oSelectedData = oSelectedItem.getBindingContext().getObject();
+
+                if (!this.oedit) {
+                    this.oedit = await Fragment.load({
+                        id: this.getView().getId(),
+                        name: "com.app.booklibrary.fragments.edit",
+                        controller: this
+                    });
+                    this.getView().addDependent(this.oedit);
+                }
+
+                // Set the model with selected row data
+                var oModel = new sap.ui.model.json.JSONModel(oSelectedData);
+                this.oedit.setModel(oModel, "editModel");
+
+                this.oedit.open();
+            },
+            onCancelPress: function () {
+                if (this.oedit.isOpen()) {
+                    this.oedit.close()
+                }
+
+            },
+            onSavePress: function () {
+                // Get the view and table
+                var oView = this.getView();
+                var oTable = oView.byId("idBookTable");
+
+                // Get the selected item
+                var oSelectedItem = oTable.getSelectedItem();
+
+                if (!oSelectedItem) {
+                    console.error("No row selected.");
+                    return;
+                }
+
+                // Get the binding context of the selected item
+                var oContext = oSelectedItem.getBindingContext();
+
+                // Get the edited data from the dialog
+                var oEditedData = {
+                    Author: oView.byId("authorInput").getValue(),
+                    Genre: oView.byId("genreInput").getValue(),
+                    Language: oView.byId("languageInput").getValue(),
+                    Price: parseFloat(oView.byId("priceInput").getValue()),
+                    total_books: parseInt(oView.byId("pricebook").getValue())
+                };
+
+                // Update specific properties of the selected row
+                oContext.getModel().setProperty(oContext.getPath() + "/Author", oEditedData.Author);
+                oContext.getModel().setProperty(oContext.getPath() + "/Genre", oEditedData.Genre);
+                oContext.getModel().setProperty(oContext.getPath() + "/Language", oEditedData.Language);
+                oContext.getModel().setProperty(oContext.getPath() + "/Price", oEditedData.Price);
+                oContext.getModel().setProperty(oContext.getPath() + "/total_books", oEditedData.total_books);
+
+                // Close the dialog
+                var oDialog = oView.byId("editDialog");
+                if (oDialog.isOpen()) {
+                    oDialog.close();
+                }
+            }
         });
     }
 );

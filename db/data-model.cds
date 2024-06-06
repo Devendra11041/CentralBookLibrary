@@ -11,8 +11,8 @@ entity Book {
         quantity     : Integer;
         Price        : types.Amount;
         Language     : String(20);
-        total_books  : Integer;
-        availability : String;
+        total_books  : String;
+        availability : Integer;
         bookphoto    : LargeString;
         // users        : Association to many User
         //                    on users.book = $self;

@@ -1,0 +1,86 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+>
+    <Dialog
+        id="editDialog"
+        title="Edit Details"
+    >
+        <VBox
+            id="idlableedit"
+            class="sapUiSmallMargin"
+        >
+            <Label
+                id="idlableAuthor"
+                text="Author"
+                class="sapUiTinyMarginBottom"
+            />
+            <Input
+                id="authorInput"
+                value="{editModel>/Author}"
+                width="100%"
+            />
+
+            <Label
+                id="idlablegenre"
+                text="Genre"
+                class="sapUiTinyMarginBottom"
+            />
+            <Input
+                id="genreInput"
+                value="{editModel>/genre}"
+                width="100%"
+            />
+
+            <Label
+                id="idlableLanguage"
+                text="Language"
+                class="sapUiTinyMarginBottom"
+            />
+            <Input
+                id="languageInput"
+                value="{editModel>/Language}"
+                width="100%"
+            />
+
+            <Label
+                id="idlablePrice"
+                text="Price"
+                class="sapUiTinyMarginBottom"
+            />
+            <Input
+                id="priceInput"
+                value="{editModel>/Price}"
+                width="100%"
+                type="Number"
+            />
+            <Label
+                id="idlablebook"
+                text="Total Book"
+                class="sapUiTinyMarginBottom"
+            />
+            <Input
+                id="pricebook"
+                value="{editModel>/total_books}"
+                width="100%"
+                type="Number"
+            />
+        </VBox>
+        <beginButton>
+            <Button
+                id="idbutsave"
+                text="Save"
+                press="onSavePress"
+                type="Success"
+            />
+        </beginButton>
+        <endButton>
+            <Button
+                id="idbutcancle"
+                text="Cancel"
+                press="onCancelPress"
+                type="Reject"
+            />
+        </endButton>
+    </Dialog>
+</core:FragmentDefinition>

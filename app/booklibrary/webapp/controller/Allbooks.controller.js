@@ -29,6 +29,8 @@ sap.ui.define(
         oGerne.addValidator(validate);
         oisbn.addValidator(validate);
       },
+
+      //wroking functionalities for multiple search options.
       onGoPress: function () {
 
         const oView = this.getView(),

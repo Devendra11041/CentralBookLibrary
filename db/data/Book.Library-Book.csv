@@ -1,16 +1,16 @@
 ID,title,Author,ISBN,genre,quantity,Price,Language,total_books,availability,bookphoto
-1,The Catcher in the Rye,J.D. Salinger,9780316769488,Coming-of-age,6,479.99,English,100,available-10,./images/book1.jpg
-2,The Great Gatsby,F. Scott Fitzgerald,9780743273565,Fiction,5,315.99,Telugu,100,available-78,./images/book2.jpg
-3,To Kill a Mockingbird,Harper Lee,9780061120084,Fiction,3,412.99,English,100,available-90,./images/book3.jpg
-4,1984,George Orwell,9780451524935,Dystopian,7,510.99,Tamil,100,available-87,./images/book4.jpg
-5,Harry Potter and the Sorcerer's Stone,J.K. Rowling,9780590353427,Fantasy,10,517.99,Kannada,100,not-available,./images/book4.jpg
-6,Pride and Prejudice,Jane Austen,9780141439518,Romance,4,611.99,Hindi,100,available-34,./images/book1.jpg
-7,The Lord of the Rings,J.R.R. Tolkien,9780618640157,Fantasy,8,619.99,English,100,not-available,./images/book6.jpg
-8,The Hobbit,J.R.R. Tolkien,9780547928227,Fantasy,9,416.99,Telugu,100,Few-Reminning,./images/hobbit.jpg
-9,The Da Vinci Code,Dan Brown,9780307474278,Thriller,5,213.99,English,100,available-20,./images/brown.jpg
-10,The Hitchhiker's Guide to the Galaxy,Douglas Adams,9780345391803,Science Fiction,3,312.99,English,100,not-available,./images/galaxy.jpg
-11,The Girl with the Dragon Tattoo,Stieg Larsson,9780307454546,Mystery,6,414.99,Telugu,100,out of Stock,./images/dragon.jpg
-12,The Hunger Games,Suzanne Collins,9780439023481,Dystopian,7,615.99,English,100,available-71,./images/hunger.jpg
-13,Brave New World,Aldous Huxley,9780060850524,Dystopian,4,611.99,Telugu,100,not-available,./images/brown.jpg
-14,The Road,Cormac McCarthy,9780307387899,Dystopian,5,813.99,Tamil,100,not-available,./images/road.jpg
-15,The Shining,Stephen King,9780307743657,Horror,6,214.99,Bengali,100,available-5,./images/shin.jpg
+1,The Catcher in the Rye,J.D. Salinger,9780316769488,Coming-of-age,6,479.99,English,20,10,./images/book1.jpg
+2,The Great Gatsby,F. Scott Fitzgerald,9780743273565,Fiction,5,315.99,Telugu,30,15,./images/book2.jpg
+3,To Kill a Mockingbird,Harper Lee,9780061120084,Fiction,3,412.99,English,40,20,./images/book3.jpg
+4,1984,George Orwell,9780451524935,Dystopian,7,510.99,Tamil,20,10,./images/book4.jpg
+5,Harry Potter and the Sorcerer's Stone,J.K. Rowling,9780590353427,Fantasy,10,517.99,Kannada,20,10,./images/book4.jpg
+6,Pride and Prejudice,Jane Austen,9780141439518,Romance,4,611.99,Hindi,30,15,./images/book1.jpg
+7,The Lord of the Rings,J.R.R. Tolkien,9780618640157,Fantasy,8,619.99,English,30,20,./images/book6.jpg
+8,The Hobbit,J.R.R. Tolkien,9780547928227,Fantasy,9,416.99,Telugu,40,30,./images/hobbit.jpg
+9,The Da Vinci Code,Dan Brown,9780307474278,Thriller,5,213.99,English,40,25,./images/brown.jpg
+10,The Hitchhiker's Guide to the Galaxy,Douglas Adams,9780345391803,Science Fiction,3,312.99,English,40,15,./images/galaxy.jpg
+11,The Girl with the Dragon Tattoo,Stieg Larsson,9780307454546,Mystery,6,414.99,Telugu,35,20,./images/dragon.jpg
+12,The Hunger Games,Suzanne Collins,9780439023481,Dystopian,7,615.99,English,35,20,./images/hunger.jpg
+13,Brave New World,Aldous Huxley,9780060850524,Dystopian,4,611.99,Telugu,50,35,./images/brown.jpg
+14,The Road,Cormac McCarthy,9780307387899,Dystopian,5,813.99,Tamil,25,10,./images/road.jpg
+15,The Shining,Stephen King,9780307743657,Horror,6,214.99,Bengali,10,20,./images/shin.jpg
