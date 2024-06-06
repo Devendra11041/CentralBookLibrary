@@ -37,7 +37,7 @@
                         type="Transparent"
                         press="onclosepage"
                     />
-                </f:navigationActions> 
+                </f:navigationActions>
             </f:DynamicPageTitle>
         </f:title>
         <f:header>
@@ -121,6 +121,7 @@
                             press="onGoPress"
                         />
                     </VBox>
+
                     <VBox
                         id="idClearFilterButton"
                         class="sapUiSmallMarginEnd"
@@ -136,6 +137,23 @@
                             press="onClearPress"
                         />
                     </VBox>
+                    <VBox
+                        id="idactiveButton"
+                        class="sapUiSmallMarginEnd"
+                    >
+                        <Label
+                            id="idactiveButtonLabel"
+                            text=""
+                        />
+                        <Button
+                            id="idactiveButtongo"
+                            class="idactiveloans"
+                            text="Active Loans"
+                            type="Emphasized"
+                            icon="sap-icon://activity-assigned-to-goal"
+                            press="onGoPreseeActive"
+                        />
+                    </VBox>
                 </HBox>
             </f:DynamicPageHeader>
         </f:header>
@@ -144,8 +162,9 @@
                 id="idBookTable"
                 mode="SingleSelectMaster"
                 alternateRowColors="true"
+                growing="true"
+                growingThreshold="5"
                 items="{/Book}"
-                
             >
                 <headerToolbar>
                     <OverflowToolbar id="idBookTableHeader">
@@ -169,15 +188,39 @@
                             type="Negative"
                             press="onDeleteButtonPress"
                         />
+                        <HBox
+                            id="idhbox"
+                            justifyContent="End"
+                        >
+                            <Button
+                                id="idbutton"
+                                text="Edit"
+                                press="onEditPress"
+                                icon="sap-icon://edit"
+                                type="Emphasized"
+                            />
+                        </HBox>
+                        <HBox
+                            id="idhbox2"
+                            justifyContent="End"
+                        >
+                            <Button
+                                id="idbutton2"
+                                text="Issue Book"
+                                press="onIssueBook"
+                                icon="sap-icon://education"
+                                type="Emphasized"
+                            />
+                        </HBox>
                     </OverflowToolbar>
                 </headerToolbar>
                 <columns>
-                    <Column id="idbookId">
+                    <!-- <Column id="idbookId">
                         <Title
                             id="idTextColbookId"
                             text="Book Id"
                         />
-                    </Column>
+                    </Column> -->
                     <Column id="idNameCol">
                         <Title
                             id="idTextColTitle"
@@ -194,18 +237,6 @@
                         <Title
                             id="idAuthor"
                             text="Author"
-                        />
-                    </Column>
-                    <Column id="idQuanCol">
-                        <Title
-                            id="idQuanColTitle"
-                            text="Price"
-                        />
-                    </Column>
-                    <Column id="idDesCol">
-                        <Title
-                            id="idDes"
-                            text="Language"
                         />
                     </Column>
                     <Column id="idgenreCol">
@@ -227,10 +258,10 @@
                         type="Navigation"
                     >
                         <cells>
-                            <Text
+                            <!-- <Text
                                 id="idBookid"
                                 text="{ID}"
-                            />
+                            /> -->
                             <Text
                                 id="idISBNColValue"
                                 text="{ISBN}"
@@ -242,14 +273,6 @@
                             <Text
                                 id="idAuthorColValue"
                                 text="{Author}"
-                            />
-                            <Text
-                                id="idPriceColValue"
-                                text="{Price}"
-                            />
-                            <Text
-                                id="idLangColValue"
-                                text="{Language}"
                             />
                             <Text
                                 id="idgenre"

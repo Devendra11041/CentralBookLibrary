@@ -178,7 +178,12 @@ sap.ui.define([
                     BookId: ID,
 
                 })
+            },
+            onGoPreseeActive: async function () {
+                const oRouter = this.getOwnerComponent().getRouter();
+                oRouter.navTo("RouteActiveLoans");
             }
+
         });
     }
 );

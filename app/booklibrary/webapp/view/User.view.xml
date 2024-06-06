@@ -38,6 +38,11 @@
                         type="Transparent"
                         press="onpageclose"
                     />
+                    <Button
+                        id="idReserve"
+                        text="Borrowed Books"
+                        type="Emphasized"
+                    />
                 </f:navigationActions>
             </f:DynamicPageTitle>
         </f:title>
@@ -137,13 +142,30 @@
                             press="onClearPress"
                         />
                     </VBox>
+                    <VBox
+                        id="idreserve"
+                        class="sapUiSmallMarginEnd"
+                    >
+                        <Label
+                            id="idreserveButtonLabel"
+                            text=""
+                        />
+                        <Button
+                            id="idreserveButtonValue"
+                            text="Reserve"
+                            type="Emphasized"
+                            press="onPressReserve"
+                        />
+                    </VBox>
                 </HBox>
             </f:DynamicPageHeader>
         </f:header>
         <f:content>
             <Table
                 id="iduserBookTable"
-                mode="MultiSelect"
+                mode="SingleSelectMaster"
+                growing="true"
+                growingThreshold="5"
                 alternateRowColors="true"
                 items="{path:'/Book',parameters:{
                     $count:true
@@ -254,4 +276,3 @@
         </f:content>
     </f:DynamicPage>
 </mvc:View>
-
