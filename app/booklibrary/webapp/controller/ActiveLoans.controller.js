@@ -10,22 +10,40 @@ sap.ui.define(
 
       },
       onpresscloseLoan: async function () {
-        var oSelected = this.byId("idUserLoans").getSelectedItem();
-        if (oSelected) {
-          var oISBN = oSelected.getBindingContext().getObject().ID;
+        console.log(this.byId("idUserLoans").getSelectedItem().getBindingContext().getObject())
+        var obj = this.byId("idUserLoans").getSelectedItem().getBindingContext().getObject(),
+          oId = obj.books.ID,
+          oAvaiable = obj.books.availability + 1;
+        var aSelectedItems = this.byId("idUserLoans").getSelectedItems();
+        console.log()
+        const userModel = new sap.ui.model.json.JSONModel({
 
-          oSelected.getBindingContext().delete("$auto").then(function () {
-            MessageBox.success(oISBN + " SuccessFully Deleted");
-          },
-            function (oError) {
-              MessageBox.error("Deletion Error: ", oError);
-            });
-          this.getView().byId("idUserLoans").getBinding("items").refresh();
+          books: {
+            availability: oAvaiable
+          }
 
-        } else {
-          MessageBox.error("Please Select a Row to Delete");
-        }
+        });
+        this.getView().setModel(userModel, "userModel");
 
+        const oPayload = this.getView().getModel("userModel").getProperty("/"),
+          oModel = this.getView().getModel("ModelV2");
+         
+        try {
+          oModel.update("/Book(" + oId + ")", oPayload.books, {
+            success: function () {
+              this.getView().byId("idBookTable").getBinding("items").refresh();//
+              //this.oEditBooksDialog.close();
+            },
+            error: function (oError) {
+              //this.oEditBooksDialog.close();
+              sap.m.MessageBox.error("Failed to update book: " + oError.message);
+            }.bind(this)
+          });
+        } catch (error) {
+          //this.oCreateBooksDialog.close();
+          sap.m.MessageBox.error("Some technical Issue");
+        };
+        this.byId("idUserLoans").getSelectedItem().getBindingContext().delete("$auto");
       },
       onpressBack: function () {
         window.history.back();

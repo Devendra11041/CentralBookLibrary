@@ -217,7 +217,6 @@
                 <items>
                     <ColumnListItem
                         id="iduserTableColListItem"
-                        type="Navigation"
                     >
                         <cells>
                             <Text
