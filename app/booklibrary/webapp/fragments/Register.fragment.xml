@@ -15,7 +15,7 @@
                 id="registerButton"
                 text="Register"
                 press="handleRegisterPress"
-                type="Accept"
+                type="Success"
             />
         </beginButton>
         <endButton>
@@ -23,7 +23,7 @@
                 id="cancelButton"
                 text="Cancel"
                 press="cancleregister"
-                type="Reject"
+                type="Negative"
             />
         </endButton>
         <content>

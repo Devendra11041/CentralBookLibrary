@@ -65,7 +65,7 @@
                 </headerToolbar>
                 <columns>
                     <Column>
-                        <Text text="Book Id" />
+                        <Text text="Book Title" />
                     </Column>
                     <Column>
                         <Text text="ISBN" />
@@ -92,7 +92,7 @@
                 <items>
                     <ColumnListItem>
                         <cells>
-                            <Text text="{book/ID}" />
+                            <Text text="{book/title}" />
                             <Text text="{book/ISBN}" />
                             <Text text="{ID}" />
                             <Text text="{user/ID}" />

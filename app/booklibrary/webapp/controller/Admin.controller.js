@@ -144,7 +144,7 @@ sap.ui.define([
                     MessageBox.error("Please fill in all fields.");
                     return;
                 }
-                oModel = this.getView().getModel("ModelV2");
+                const oModel = this.getView().getModel("ModelV2");
 
                 try {
                     debugger

@@ -79,6 +79,9 @@
                                 <m:Label
                                     id="idusermail"
                                     text="Email: {email}"
+                                /><m:Label
+                                    id="iduserphno"
+                                    text="PH No:{phone_no}"
                                 />
                             </m:VBox>
                         </m:HBox>
