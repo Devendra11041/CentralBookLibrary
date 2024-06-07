@@ -13,7 +13,10 @@ sap.ui.define(
 
     return Controller.extend("com.app.booklibrary.controller.Allbooks", {
       onInit: function () {
-        
+
+        const oTable = this.getView().byId("iduserBookTable");
+        oTable.attachBrowserEvent("dblclick", this.onRowDoubleClick.bind(this));
+
         const oRouter = this.getOwnerComponent().getRouter();
         oRouter.attachRoutePatternMatched(this.onUserDetailsLoad, this);
 
@@ -120,6 +123,16 @@ sap.ui.define(
           //this.oCreateBooksDialog.close();
           MessageBox.error("Some technical Issue");
         }
+      },
+      onRowDoubleClick: function () {
+        var oSelected = this.byId("iduserBookTable").getSelectedItem();
+        var ID = oSelected.getBindingContext().getObject().ID;
+
+        const oRouter = this.getOwnerComponent().getRouter();
+        oRouter.navTo("RouteBookData", {
+          BookId: ID,
+
+        })
       }
     });
   }

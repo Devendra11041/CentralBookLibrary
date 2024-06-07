@@ -140,6 +140,14 @@
                                         id="idtotal_booksText"
                                         text="{total_books}"
                                     />
+                                    <Label
+                                        id="idavailability_booksLabel"
+                                        text="availability_books"
+                                    />
+                                    <Text
+                                        id="idavailability_booksText"
+                                        text="{availability}"
+                                    />
 
                                 </form:SimpleForm>
                             </uxap:blocks>
