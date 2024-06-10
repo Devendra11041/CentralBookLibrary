@@ -1,10 +1,10 @@
 sap.ui.define(
   [
     "sap/ui/core/mvc/Controller",
-    "sap/m/Token"
+    "sap/ui/core/Fragment"
 
   ],
-  function (Controller) {
+  function (Controller,Fragment) {
     "use strict";
 
     return Controller.extend("com.app.booklibrary.controller.User", {
@@ -33,7 +33,28 @@ sap.ui.define(
           {
             id: userId
           });
-      }
+      },
+      //
+      onpressnotify: async function () {
+        if (!this.oNotification) {
+          this.oNotification = await Fragment.load({
+                id: this.getView().getId(),
+                name: "com.app.booklibrary.fragments.Notification",
+                controller: this
+            });
+            this.getView().addDependent(this.oNotification);
+        }
+ 
+        this.oNotification.open();
+        const oObjectPage = this.getView().byId("idnotificationDialog");
+        oObjectPage.bindElement(`/User(${this.ID})`);
+    },
+ 
+    onCloseNotificationDialog: function () {
+        if (this.oNotification.isOpen()) {
+            this.oNotification.close()
+        }
+    }
     });
   }
 );

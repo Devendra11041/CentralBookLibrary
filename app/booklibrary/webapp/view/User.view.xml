@@ -35,6 +35,11 @@
                         icon="sap-icon://log"
                         press="onpageclose"
                     />
+                    <Button
+                        id="idBtnnotify"
+                        icon="sap-icon://bell-2"
+                        press="onpressnotify"
+                    />
                 </f:navigationActions>
             </f:DynamicPageTitle>
         </f:title>
