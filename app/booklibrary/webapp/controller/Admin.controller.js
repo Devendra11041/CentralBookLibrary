@@ -144,7 +144,7 @@ sap.ui.define([
                     MessageBox.error("Please fill in all fields.");
                     return;
                 }
-                const  oModel = this.getView().getModel("ModelV2");
+                const oModel = this.getView().getModel("ModelV2");
 
                 try {
                     debugger
@@ -330,6 +330,10 @@ sap.ui.define([
                     users_ID: oSelectedBook.user.ID,
                     issuseDate: new Date(),
                     DueDate: due,
+                    notify:
+                        `Your reserved book "
+                ${oSelectedBook.book.title}
+                " is issued`,
                     books: {
                         availability: oAval
                     }

@@ -44,6 +44,7 @@ entity ActiveLoans {
         users      : Association to User;
         issuseDate : Date;
         DueDate    : Date;
+        notify     : String;
 
 }
 
