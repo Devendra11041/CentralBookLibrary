@@ -159,22 +159,43 @@ sap.ui.define([
             },
             //Delete the selected row
             onDeleteButtonPress: async function () {
+                var aSelectedItems = this.byId("idBookTable").getSelectedItems();
+                if (aSelectedItems.length > 0) {
+                    var aISBNs = [];
+                    aSelectedItems.forEach(function (oSelectedItem) {
+                        var sISBN = oSelectedItem.getBindingContext().getObject().title;
+                        var oQuantity1 = oSelectedItem.getBindingContext().getObject().total_books
+                        var oAQuantity1 = oSelectedItem.getBindingContext().getObject().availability
 
-                var oSelected = this.byId("idBookTable").getSelectedItem();
-                if (oSelected) {
-                    var oISBN = oSelected.getBindingContext().getObject().ID;
 
-                    oSelected.getBindingContext().delete("$auto").then(function () {
-                        MessageBox.success(oISBN + " SuccessFully Deleted");
-                    },
-                        function (oError) {
-                            MessageBox.error("Deletion Error: ", oError);
+                        if (oQuantity1 == oAQuantity1) {
+                            aISBNs.push(sISBN);
+                            oSelectedItem.getBindingContext().delete("$auto");
+                        }
+                        else {
+                            MessageBox.error("Cannot delete the book. It has active ActiveLoans.")
+                            return
+                        }
+                    });
+
+                    Promise.all(aISBNs.map(function (sISBN) {
+                        return new Promise(function (resolve, reject) {
+                            resolve(sISBN + " Successfully Deleted");
                         });
-                    this.getView().byId("idBookTable").getBinding("items").refresh();
+                    })).then(function (aMessages) {
+                        aMessages.forEach(function (sMessage) {
+                            MessageBox.success(sMessage);
+                        });
+                    }).catch(function (oError) {
+                        MessageBox.error("Deletion Error: " + oError);
+                    });
 
+                    this.getView().byId("idBookTable").removeSelections(true);
+                    this.getView().byId("idBookTable").getBinding("items").refresh();
                 } else {
-                    MessageBox.error("Please Select a Row to Delete");
-                }
+                    MessageBox.error("Please Select Rows to Delete");
+                };
+                this.getView().byId("idBookTable").getBinding("items").refresh()
 
             },
             // close function for the dynamic page
