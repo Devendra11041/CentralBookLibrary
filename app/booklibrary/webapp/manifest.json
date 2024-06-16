@@ -169,6 +169,13 @@
           "target": [
             "TargetAllbooks"
           ]
+        },
+        {
+          "name": "Routeallusers",
+          "pattern": "allusers",
+          "target": [
+            "Targetallusers"
+          ]
         }
       ],
       "targets": {
@@ -213,6 +220,13 @@
           "clearControlAggregation": false,
           "viewId": "Allbooks",
           "viewName": "Allbooks"
+        },
+        "Targetallusers": {
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": false,
+          "viewId": "allusers",
+          "viewName": "allusers"
         }
       }
     },

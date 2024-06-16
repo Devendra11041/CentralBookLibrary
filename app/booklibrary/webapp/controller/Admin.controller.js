@@ -159,44 +159,49 @@ sap.ui.define([
             },
             //Delete the selected row
             onDeleteButtonPress: async function () {
+                var that = this; // Preserve 'this' context
                 var aSelectedItems = this.byId("idBookTable").getSelectedItems();
                 if (aSelectedItems.length > 0) {
-                    var aISBNs = [];
-                    aSelectedItems.forEach(function (oSelectedItem) {
-                        var sISBN = oSelectedItem.getBindingContext().getObject().title;
-                        var oQuantity1 = oSelectedItem.getBindingContext().getObject().total_books
-                        var oAQuantity1 = oSelectedItem.getBindingContext().getObject().availability
+                    MessageBox.confirm("Are you sure you want to delete the selected book(s)?", {
+                        title: "Confirm Deletion",
+                        onClose: function (oAction) {
+                            if (oAction === MessageBox.Action.OK) {
+                                var aISBNs = [];
+                                aSelectedItems.forEach(function (oSelectedItem) {
+                                    var sISBN = oSelectedItem.getBindingContext().getObject().title;
+                                    var oQuantity1 = oSelectedItem.getBindingContext().getObject().total_books
+                                    var oAQuantity1 = oSelectedItem.getBindingContext().getObject().availability
 
+                                    if (oQuantity1 == oAQuantity1) {
+                                        aISBNs.push(sISBN);
+                                        oSelectedItem.getBindingContext().delete("$auto");
+                                    } else {
+                                        MessageBox.error("Cannot delete the book. It has ActiveLoans.");
+                                        return; // Stop further execution
+                                    }
+                                });
 
-                        if (oQuantity1 == oAQuantity1) {
-                            aISBNs.push(sISBN);
-                            oSelectedItem.getBindingContext().delete("$auto");
-                        }
-                        else {
-                            MessageBox.error("Cannot delete the book. It has active ActiveLoans.")
-                            return
+                                Promise.all(aISBNs.map(function (sISBN) {
+                                    return new Promise(function (resolve, reject) {
+                                        resolve(sISBN + " Successfully Deleted");
+                                    });
+                                })).then(function (aMessages) {
+                                    aMessages.forEach(function (sMessage) {
+                                        MessageBox.success(sMessage);
+                                    });
+                                }).catch(function (oError) {
+                                    MessageBox.error("Deletion Error: " + oError);
+                                });
+
+                                that.getView().byId("idBookTable").removeSelections(true);
+                                that.getView().byId("idBookTable").getBinding("items").refresh();
+                            }
                         }
                     });
-
-                    Promise.all(aISBNs.map(function (sISBN) {
-                        return new Promise(function (resolve, reject) {
-                            resolve(sISBN + " Successfully Deleted");
-                        });
-                    })).then(function (aMessages) {
-                        aMessages.forEach(function (sMessage) {
-                            MessageBox.success(sMessage);
-                        });
-                    }).catch(function (oError) {
-                        MessageBox.error("Deletion Error: " + oError);
-                    });
-
-                    this.getView().byId("idBookTable").removeSelections(true);
-                    this.getView().byId("idBookTable").getBinding("items").refresh();
+                    jQuery('.sapMMessageBoxText').css('color', 'red');
                 } else {
                     MessageBox.error("Please Select Rows to Delete");
-                };
-                this.getView().byId("idBookTable").getBinding("items").refresh()
-
+                }
             },
             // close function for the dynamic page
             onclosepage: function () {
@@ -383,6 +388,10 @@ sap.ui.define([
                     //this.oCreateBooksDialog.close();
                     sap.m.MessageBox.error("Some technical Issue");
                 }
+            },
+            onpressusers:async function () {
+                const oRouter = this.getOwnerComponent().getRouter();
+                oRouter.navTo("Routeallusers");
             }
 
         });

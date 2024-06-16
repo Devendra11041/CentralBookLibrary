@@ -23,28 +23,34 @@
 /* .idactiveloans{
   background-color: green
 } */
-.classactiveloan{
+.classactiveloan {
   background-color: rgb(200, 227, 200)
 }
-.classusertable{
-  background-color:rgb(244, 216, 197)
+
+.classusertable {
+  background-color: rgb(244, 216, 197)
 }
 
 .largeLabel {
-  font-size: 100%; 
+  font-size: 100%;
   color: rgb(243, 27, 35);
 }
+
 /* .classuserpage{
   background-color:rgb(192, 23, 62)
 } */
-.uservboxcalss{
+.uservboxcalss {
   padding-right: 70%;
 }
 
-.classuservbox{
+.classuservbox {
   padding-top: 10%;
 }
-.classuserbtn{
-  padding-left:50%;
+
+.classuserbtn {
+  padding-left: 50%;
 }
 
+.redMessageBox .sapMMessageBoxText {
+  color: red !important;
+}

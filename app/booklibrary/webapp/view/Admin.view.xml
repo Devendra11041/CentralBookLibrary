@@ -27,6 +27,12 @@
                 </f:expandedContent>
                 <f:navigationActions>
                     <Button
+                        id="idBtnusers"
+                        type="Success"
+                        icon="sap-icon://customer-and-contacts"
+                        press="onpressusers"
+                    />
+                    <Button
                         id="idBtnDecline"
                         type="Negative"
                         text="sign Out"
@@ -212,7 +218,6 @@
                     </OverflowToolbar>
                 </headerToolbar>
                 <columns>
-            
                     <Column
                         id="idNameCol"
                         class="userclasscolum"

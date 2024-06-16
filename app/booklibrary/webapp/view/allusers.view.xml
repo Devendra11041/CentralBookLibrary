@@ -1,0 +1,104 @@
+<mvc:View
+    controllerName="com.app.booklibrary.controller.allusers"
+    xmlns:html="http://www.w3.org/1999/xhtml"
+    xmlns:mvc="sap.ui.core.mvc"
+    displayBlock="true"
+    xmlns="sap.m"
+>
+    <Page
+        id="iduserspage"
+        title="All Users Page"
+    >
+        <Table
+            id="idUserall"
+            items="{/User}"
+            alternateRowColors="true"
+            backgroundDesign="Transparent"
+            growing="true"
+            growingThreshold="5"
+            mode="SingleSelectMaster"
+            class="classactiveloan"
+        >
+            <headerToolbar>
+                <OverflowToolbar id="idBookTableHeader">
+                    <Title
+                        id="idTableHeaderTitle"
+                        text="All Users"
+                    />
+                    <ToolbarSpacer id="idTableHeaderSpacer1" />
+                    <Button
+                        id="idBtnback"
+                        icon="sap-icon://nav-back"
+                        tooltip="close"
+                        type="Emphasized"
+                        text="Back"
+                        press="onpressBackuser"
+                    />
+                </OverflowToolbar>
+            </headerToolbar>
+            <columns>
+                <Column id="idISBNColumn">
+                    <Title
+                        id="idISBNuserid"
+                        text="USER ID"
+                    />
+                </Column>
+                <Column id="idtitleColumn">
+                    <Title
+                        id="idusername"
+                        text="userName"
+                    />
+                </Column>
+                <Column id="idUserColumn">
+                    <Title
+                        id="idUseremail"
+                        text="Mail"
+                    />
+                </Column>
+                <Column id="idBooksidColumn">
+                    <Title
+                        id="iduserPh_Number"
+                        text="Ph_Number"
+                    />
+                </Column>
+                <Column
+                    id="idusercolumn"
+                    visible="false"
+                >
+                    <Title
+                        id="iduseraddress"
+                        text="Address"
+                    />
+                </Column>
+            </columns>
+
+            <items>
+                <ColumnListItem id="idColumnListUserLoan">
+                    <cells>
+                        <Text
+                            id="idLoanIdvalue"
+                            text="{ID}"
+                        />
+                        <Text
+                            id="idBOOKTILTEvalue"
+                            text="{Username}"
+                        />
+                        <Text
+                            id="idUserIdvalueText"
+                            text="{email}"
+                        />
+                        <Text
+                            id="idbooksIdvalue"
+                            text="{phone_no}"
+                        />
+                        <Text
+                            visible="false"
+                            id="idIssusedatevalue"
+                            text="{password}"
+                        />
+                    </cells>
+                </ColumnListItem>
+            </items>
+        </Table>
+    </Page>
+</mvc:View>

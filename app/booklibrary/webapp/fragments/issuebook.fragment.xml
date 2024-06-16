@@ -7,13 +7,17 @@
         id="idissuebooksDialog"
         resizable="true"
         draggable="true"
-        contentWidth="30%"
+        contentWidth="80%"
+        contentHeight="80%"
         title="Issue Books Details"
     >
         <customHeader>
-            <Bar>
+            <Bar id="idbar">
                 <contentLeft>
-                    <Text text="Issue Books Details" />
+                    <Text
+                        id="idtext2"
+                        text="Issue Books Details"
+                    />
                 </contentLeft>
                 <contentRight>
                     <Button
@@ -27,10 +31,12 @@
             </Bar>
         </customHeader>
         <VBox
+            id="idvboxissue"
             class="cancelbtn"
             alignItems="End"
         />
         <VBox
+            id="idvboxissue1"
             class="sapUiSmallMargin"
             alignItems="Center"
         >
@@ -64,42 +70,96 @@
                     </OverflowToolbar>
                 </headerToolbar>
                 <columns>
-                    <Column>
-                        <Text text="Book Title" />
+                    <Column id="idissuecolumn">
+                        <Text
+                            id="idbookisuue"
+                            text="Book Title"
+                        />
                     </Column>
-                    <Column>
-                        <Text text="ISBN" />
+                    <Column id="idcolumnisuueisbn">
+                        <Text
+                            id="idissueisbn"
+                            text="ISBN"
+                        />
                     </Column>
-                    <Column>
-                        <Text text="Reservation Id" />
+                    <Column id="idcolumnreser">
+                        <Text
+                            id="idcolumnreserid"
+                            text="Reservation Id"
+                        />
                     </Column>
-                    <Column>
-                        <Text text="User Id" />
+                    <Column id="idcolumnuserid">
+                        <Text
+                            id="idtextuserid"
+                            text="User Id"
+                        />
                     </Column>
-                    <Column>
-                        <Text text="UserName" />
+                    <Column id="idcolumnusername">
+                        <Text
+                            id="idtextusername"
+                            text="UserName"
+                        />
                     </Column>
-                    <Column>
-                        <Text text="Title" />
+                    <Column id="idcolumntitel">
+                        <Text
+                            id="idtexttitle"
+                            text="Title"
+                        />
                     </Column>
-                    <Column class="issuebookheader">
-                        <Text text="Request Date" />
+                    <Column
+                        id="idcolumndate"
+                        class="issuebookheader"
+                    >
+                        <Text
+                            id="idtextdate"
+                            text="Request Date"
+                        />
                     </Column>
-                    <Column visible="false">
-                        <Text text="availability " />
+                    <Column
+                        id="idcolumnavil"
+                        visible="false"
+                    >
+                        <Text
+                            id="idtextavail"
+                            text="availability "
+                        />
                     </Column>
                 </columns>
                 <items>
-                    <ColumnListItem>
+                    <ColumnListItem id="idcolumnitems">
                         <cells>
-                            <Text text="{book/title}" />
-                            <Text text="{book/ISBN}" />
-                            <Text text="{ID}" />
-                            <Text text="{user/ID}" />
-                            <Text text="{user/Username}" />
-                            <Text text="{book/title}" />
-                            <Text text="{reservedDate}" />
-                            <Text text="{book/availability}" />
+                            <Text
+                                id="idcelltitle"
+                                text="{book/title}"
+                            />
+                            <Text
+                                id="idcellisbn"
+                                text="{book/ISBN}"
+                            />
+                            <Text
+                                id="idcellid"
+                                text="{ID}"
+                            />
+                            <Text
+                                id="idcelluserid"
+                                text="{user/ID}"
+                            />
+                            <Text
+                                id="idcellusername"
+                                text="{user/Username}"
+                            />
+                            <Text
+                                id="idcellbooktitle"
+                                text="{book/title}"
+                            />
+                            <Text
+                                id="idcelldate"
+                                text="{reservedDate}"
+                            />
+                            <Text
+                                id="idcellavailble"
+                                text="{book/availability}"
+                            />
                         </cells>
                     </ColumnListItem>
                 </items>
