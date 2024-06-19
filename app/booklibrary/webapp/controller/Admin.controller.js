@@ -151,7 +151,7 @@ sap.ui.define([
                     await this.createData(oModel, oPayload, "/Book");
                     this.getView().byId("idBookTable").getBinding("items").refresh();
                     this.ocreate.close();
-                    MessageBox.success("book added successfully");
+                    MessageBox.success(`${oPayload.title} book added successfully`);
                 } catch (error) {
                     this.ocreate.close();
                     MessageBox.error("Some technical Issue");
@@ -372,7 +372,8 @@ sap.ui.define([
 
                 try {
                     await this.createData(oModel, oPayload, "/ActiveLoans");
-                    sap.m.MessageBox.success("Book Issued successfully");
+                    debugger
+                    sap.m.MessageBox.success(oSelectedBook.book.title + " Book Issued successfully");
 
                     this.byId("issuebooksTable").getSelectedItem().getBindingContext().delete("$auto");
                     oModel.update("/Book(" + oSelectedBook.book.ID + ")", oPayload.books, {

@@ -1,0 +1,98 @@
+_schema-version: "3.1"
+ID: CentralLibrarySystem
+description: A simple CAP project.
+version: 1.0.0
+modules:
+  - name: CentralLibrarySystem-srv
+    type: nodejs
+    path: gen/srv
+    provides:
+      - name: srv-api
+        properties:
+          srv-url: ${default-url}
+    parameters:
+      buildpack: nodejs_buildpack
+      readiness-health-check-http-endpoint: /health
+      readiness-health-check-type: http
+    build-parameters:
+      builder: npm
+    requires:
+      - name: CentralLibrarySystem-db
+      - name: uaa_CentralLibrarySystem
+  - name: CentralLibrarySystem-destination-content
+    type: com.sap.application.content
+    requires:
+      - name: CentralLibrarySystem-destination-service
+        parameters:
+          content-target: true
+      - name: CentralLibrarySystem_html_repo_host
+        parameters:
+          service-key:
+            name: CentralLibrarySystem_html_repo_host-key
+      - name: uaa_CentralLibrarySystem
+        parameters:
+          service-key:
+            name: uaa_CentralLibrarySystem-key
+    parameters:
+      content:
+        instance:
+          destinations:
+            - Name: centralbooklibrary_CentralLibrarySystem_html_repo_host
+              ServiceInstanceName: CentralLibrarySystem-html5-app-host-service
+              ServiceKeyName: CentralLibrarySystem_html_repo_host-key
+              sap.cloud.service: centralbooklibrary
+            - Authentication: OAuth2UserTokenExchange
+              Name: centralbooklibrary_uaa_CentralLibrarySystem
+              ServiceInstanceName: CentralLibrarySystem-xsuaa-service
+              ServiceKeyName: uaa_CentralLibrarySystem-key
+              sap.cloud.service: centralbooklibrary
+          existing_destinations_policy: ignore
+    build-parameters:
+      no-source: true
+
+  - name: CentralLibrarySystem-db-deployer
+    type: hdb
+    path: gen/db
+    parameters:
+      buildpack: nodejs_buildpack
+    requires:
+      - name: CentralLibrarySystem-db
+resources:
+  - name: CentralLibrarySystem-destination-service
+    type: org.cloudfoundry.managed-service
+    parameters:
+      config:
+        HTML5Runtime_enabled: true
+        version: 1.0.0
+      service: destination
+      service-name: CentralLibrarySystem-destination-service
+      service-plan: lite
+  - name: CentralLibrarySystem_html_repo_host
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: html5-apps-repo
+      service-name: CentralLibrarySystem-html5-app-host-service
+      service-plan: app-host
+  - name: uaa_CentralLibrarySystem
+    type: org.cloudfoundry.managed-service
+    parameters:
+      path: ./xs-security.json
+      service: xsuaa
+      service-name: CentralLibrarySystem-xsuaa-service
+      service-plan: application
+      config:
+        xsappname: CentralLibrarySystem-${org}-${space}
+        tenant-mode: dedicated
+  - name: CentralLibrarySystem-db
+    type: com.sap.xs.hdi-container
+    parameters:
+      service: hana
+      service-plan: hdi-shared
+parameters:
+  enable-parallel-deployments: true
+build-parameters:
+  before-all:
+    - builder: custom
+      commands:
+        - npm ci
+        - npx cds build --production

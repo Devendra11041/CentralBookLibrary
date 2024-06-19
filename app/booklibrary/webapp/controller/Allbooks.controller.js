@@ -5,10 +5,12 @@ sap.ui.define(
     "sap/ui/model/Filter",
     "sap/ui/model/FilterOperator",
     "sap/ui/core/Fragment",
-    "sap/m/MessageBox"
+    "sap/m/MessageBox",
+    "sap/m/MessageToast",
+    "sap/ui/model/odata/v2/ODataModel"
 
   ],
-  function (Controller, Token, Filter, FilterOperator, Fragment, MessageBox) {
+  function (Controller, Token, Filter, FilterOperator, Fragment, MessageBox,MessageToast,ODataModel) {
     "use strict";
 
     return Controller.extend("com.app.booklibrary.controller.Allbooks", {
@@ -94,36 +96,119 @@ sap.ui.define(
       },
       //Function for USer Reserv book 
       onReserrveBtnPress: async function (oEvent) {
-        var oSelectedItem = oEvent.getSource();
-        //console.log(oSelectedItem)
-        console.log(this.ID)
-        console.log(oEvent.getSource().getParent())
-        var userId = this.ID
-        if (this.byId("iduserBookTable").getSelectedItems().length > 1) {
-          MessageBox.error("Please Select only one Book");
-          return
+        debugger;
+        var oSelectedItem = oEvent.getSource().getParent();
+        var oSelectedUser = oSelectedItem.getBindingContext().getObject();
+        var oSelectedBook = this.byId("iduserBookTable").getSelectedItem().getBindingContext().getObject();
+        var oModel = this.getView().getModel("ModelV2");
+    
+        if (!oSelectedBook) {
+            MessageToast.show("Please select a Book");
+            return;
         }
-        var oSelectedBook = this.byId("iduserBookTable").getSelectedItem().getBindingContext().getObject()
-        console.log(oSelectedBook)
-
-        const userModel = new sap.ui.model.json.JSONModel({
-          user_ID: userId,
-          book_ID: oSelectedBook.ID,
-          reservedDate: new Date(),
+    
+        // Confirmation dialog before proceeding with reservation
+        MessageBox.confirm("Are you sure you want to reserve this book?", {
+            title: "Confirm Reservation",
+            onClose: async function (oAction) {
+                if (oAction === MessageBox.Action.OK) {
+                    // User confirmed reservation
+                    if (this.byId("iduserBookTable").getSelectedItems().length > 1) {
+                        MessageToast.show("Please Select only one Book");
+                        return;
+                    }
+    
+                    if (oSelectedBook.availability === 0) {
+                        MessageToast.show("Book is not available")
+                        return;
+                    }
+    
+                    var oQuantity = oSelectedBook.availability - 1;
+                    const bIsInActiveLones = await this.bookInactiveLoans(oSelectedBook.ID, this.ID);
+    
+                    if (bIsInActiveLones) {
+                        MessageToast.show("You have an active loan for the selected book.");
+                        return;
+                    }
+    
+                    const bIsBookReserved = await this.checkIfBookIsReservedByUser(oSelectedBook.ID, this.ID);
+    
+                    if (bIsBookReserved) {
+                        MessageBox.error("This book is already reserved by you.");
+                        return;
+                    }
+    
+                    const userModel = new sap.ui.model.json.JSONModel({
+                        user_ID: this.ID,
+                        book_ID: oSelectedBook.ID,
+                        reservedDate: new Date(),
+                        book: {
+                            availability: oQuantity
+                        }
+                    });
+    
+                    this.getView().setModel(userModel, "userModel");
+    
+                    const oPayload = this.getView().getModel("userModel").getProperty("/");
+    
+                    try {
+                        await this.createData(oModel, oPayload, "/IssueBook");
+                        oModel.refresh();
+                        // Update the selected book's context to mark it as reserved
+                        sap.m.MessageBox.success(`${oSelectedBook.title} Book Reserved`);
+                        this.getView().byId("iduserBookTable").getBinding("items").refresh();
+                    } catch (error) {
+                        MessageBox.error("Some technical issue occurred.");
+                    }
+                } else {
+                    // User canceled reservation
+                    MessageToast.show("Reservation canceled.");
+                }
+            }.bind(this)  // Bind 'this' to the onClose function to maintain the context
         });
-        this.getView().setModel(userModel, "userModel");
-
-        const oPayload = this.getView().getModel("userModel").getProperty("/"),
-          oModel = this.getView().getModel("ModelV2");
-
-        try {
-          await this.createData(oModel, oPayload, "/IssueBook");
-          MessageBox.success("Book Reserved successfully");
-        } catch (error) {
-          //this.oCreateBooksDialog.close();
-          MessageBox.error("Some technical Issue");
-        }
-      },
+    },
+    
+    checkIfBookIsReservedByUser: function (bookID, userID) {
+        return new Promise((resolve, reject) => {
+            const oModel = this.getView().getModel("ModelV2");
+            const oFilters = [
+                new Filter("book_ID", FilterOperator.EQ, bookID),
+                new Filter("user_ID", FilterOperator.EQ, userID)
+            ];
+    
+            oModel.read("/IssueBook", {
+                filters: oFilters,
+                success: function (oData) {
+                    resolve(oData.results.length > 0);
+                },
+                error: function (oError) {
+                    reject(oError);
+                }
+            });
+        });
+    },
+    
+    bookInactiveLoans: function (bookID, userID) {
+        return new Promise((resolve, reject) => {
+            const oModel = this.getView().getModel("ModelV2");
+            const oFilters = [
+                new Filter("books_ID", FilterOperator.EQ, bookID),
+                new Filter("users_ID", FilterOperator.EQ, userID)
+            ];
+    
+            oModel.read("/ActiveLoans", {
+                filters: oFilters,
+                success: function (oData) {
+                    // Check if any of the loans are still active (no return date)
+                    const bIsBorrowed = oData.results.some(loan => !loan.returndate);
+                    resolve(bIsBorrowed);
+                },
+                error: function (oError) {
+                    reject(oError);
+                }
+            });
+        });
+    },    
       onRowDoubleClick: function () {
         var oSelected = this.byId("iduserBookTable").getSelectedItem();
         var ID = oSelected.getBindingContext().getObject().ID;

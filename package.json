@@ -9,11 +9,13 @@
     "@sap/cds": "^7",
     "@sap/cds-hana": "^2",
     "@sap/cds-odata-v2-adapter-proxy": "^1.9.21",
+    "@sap/xssec": "^4.1.0",
     "express": "^4",
     "update": "^0.7.4"
   },
   "devDependencies": {
     "@cap-js/sqlite": "^1",
+    "@sap/cds-dk": "^7",
     "@sap/eslint-plugin-cds": "^3",
     "@sap/ux-specification": "^1.120.12",
     "eslint": "^9"
@@ -25,8 +27,38 @@
   },
   "cds": {
     "requires": {
-      "db": "sqlite",
-      "kind": "basic"
+      "db": {
+        "[devlopment]": {
+          "kind": "sqlite"
+        },
+        "[production]": {
+          "kind": "hana"
+        }
+      },
+      "[production]": {
+        "auth": "xsuaa"
+      },
+      "[development]": {
+        "auth": {
+          "kind": "mocked",
+          "users": {
+            "admin@sap.com": {
+              "password": "deva",
+              "ID": "deva@sap.com",
+              "roles": [
+                "Admin"
+              ]
+            },
+            "user@sap.com": {
+              "password": "Initial",
+              "ID": "user@sap.com",
+              "roles": [
+                "User"
+              ]
+            }
+          }
+        }
+      }
     }
   },
   "sapux": [

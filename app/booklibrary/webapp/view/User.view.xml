@@ -79,7 +79,7 @@
                             >
                                 <m:Label
                                     id="idusername"
-                                    text="User Nme: {Username}"
+                                    text="User Name: {Username}"
                                 />
                                 <m:Label
                                     id="idusermail"

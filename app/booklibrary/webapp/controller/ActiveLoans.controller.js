@@ -11,7 +11,7 @@ sap.ui.define(
       },
       //Loan closing function
       onpresscloseLoan: async function () {
-        console.log(this.byId("idUserLoans").getSelectedItem().getBindingContext().getObject())
+        debugger
         var obj = this.byId("idUserLoans").getSelectedItem().getBindingContext().getObject(),
           oId = obj.books.ID,
           oAvaiable = obj.books.availability + 1;
@@ -28,12 +28,11 @@ sap.ui.define(
 
         const oPayload = this.getView().getModel("userModel").getProperty("/"),
           oModel = this.getView().getModel("ModelV2");
-         
+
         try {
           oModel.update("/Book(" + oId + ")", oPayload.books, {
             success: function () {
               this.getView().byId("idBookTable").getBinding("items").refresh();//
-              //this.oEditBooksDialog.close();
             },
             error: function (oError) {
               //this.oEditBooksDialog.close();
@@ -44,7 +43,10 @@ sap.ui.define(
           //this.oCreateBooksDialog.close();
           sap.m.MessageBox.error("Some technical Issue");
         };
+        // var user = this.byId("idUserLoans").getSelectedItem().getBindingContext().getObject()
         this.byId("idUserLoans").getSelectedItem().getBindingContext().delete("$auto");
+        sap.m.MessageBox.success("Loan Closed successfully");
+
       },
       onpressBack: function () {
         window.history.back();
