@@ -340,7 +340,6 @@ sap.ui.define([
             },
             //Admin Issue the book
             onReservebtnpress: async function (oEvent) {
-                console.log(this.byId("issuebooksTable").getSelectedItem().getBindingContext().getObject())
                 if (this.byId("issuebooksTable").getSelectedItems().length > 1) {
                     MessageToast.show("Please Select only one Book");
                     return

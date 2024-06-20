@@ -53,3 +53,9 @@ entity IssueBook : cuid {
     user         : Association to User;
     reservedDate : Date;
 }
+
+entity History : cuid {
+    books          : Association to Book;
+    users          : Association to User;
+    loanclosedDate : Date;
+}

@@ -6,6 +6,9 @@ modules:
   - name: CentralLibrarySystem-srv
     type: nodejs
     path: gen/srv
+    requires:
+      - name: CentralLibrarySystem-db
+      - name: uaa_CentralLibrarySystem
     provides:
       - name: srv-api
         properties:
@@ -16,9 +19,6 @@ modules:
       readiness-health-check-type: http
     build-parameters:
       builder: npm
-    requires:
-      - name: CentralLibrarySystem-db
-      - name: uaa_CentralLibrarySystem
   - name: CentralLibrarySystem-destination-content
     type: com.sap.application.content
     requires:
@@ -49,20 +49,53 @@ modules:
           existing_destinations_policy: ignore
     build-parameters:
       no-source: true
-
   - name: CentralLibrarySystem-db-deployer
     type: hdb
     path: gen/db
-    parameters:
-      buildpack: nodejs_buildpack
     requires:
       - name: CentralLibrarySystem-db
+    parameters:
+      buildpack: nodejs_buildpack
+  - name: CentralLibrarySystem-app-content
+    type: com.sap.application.content
+    path: .
+    requires:
+      - name: CentralLibrarySystem_html_repo_host
+        parameters:
+          content-target: true
+    build-parameters:
+      build-result: resources
+      requires:
+        - artifacts:
+            - comappcentrallibrary.zip
+          name: comappcentrallibrary
+          target-path: resources/
+  - name: comappcentrallibrary
+    type: html5
+    path: app/centrallibrary
+    build-parameters:
+      build-result: dist
+      builder: custom
+      commands:
+        - npm install
+        - npm run build:cf
+      supported-platforms:
+        []
 resources:
   - name: CentralLibrarySystem-destination-service
     type: org.cloudfoundry.managed-service
     parameters:
       config:
         HTML5Runtime_enabled: true
+        init_data:
+          instance:
+            destinations:
+              - Authentication: NoAuthentication
+                Name: ui5
+                ProxyType: Internet
+                Type: HTTP
+                URL: https://ui5.sap.com
+            existing_destinations_policy: update
         version: 1.0.0
       service: destination
       service-name: CentralLibrarySystem-destination-service
@@ -76,19 +109,20 @@ resources:
   - name: uaa_CentralLibrarySystem
     type: org.cloudfoundry.managed-service
     parameters:
+      config:
+        tenant-mode: dedicated
+        xsappname: CentralLibrarySystem-${org}-${space}
       path: ./xs-security.json
       service: xsuaa
       service-name: CentralLibrarySystem-xsuaa-service
       service-plan: application
-      config:
-        xsappname: CentralLibrarySystem-${org}-${space}
-        tenant-mode: dedicated
   - name: CentralLibrarySystem-db
     type: com.sap.xs.hdi-container
     parameters:
       service: hana
       service-plan: hdi-shared
 parameters:
+  deploy_mode: html5-repo
   enable-parallel-deployments: true
 build-parameters:
   before-all:

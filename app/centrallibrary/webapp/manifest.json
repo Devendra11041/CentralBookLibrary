@@ -1,7 +1,7 @@
 {
   "_version": "1.59.0",
   "sap.app": {
-    "id": "com.app.centralibrary",
+    "id": "com.app.centrallibrary",
     "type": "application",
     "i18n": "i18n/i18n.properties",
     "applicationVersion": {
@@ -13,7 +13,7 @@
     "sourceTemplate": {
       "id": "@sap/generator-fiori:lrop",
       "version": "1.13.6",
-      "toolsId": "a038785e-8857-416e-bf8a-4396f5cc5f1e"
+      "toolsId": "d0eb22ab-4482-4738-a491-1039483b880e"
     },
     "dataSources": {
       "mainService": {
@@ -27,8 +27,8 @@
     },
     "crossNavigation": {
       "inbounds": {
-        "centrallibrary-display": {
-          "semanticObject": "centrallibrary",
+        "Central-Library-display": {
+          "semanticObject": "Central-Library",
           "action": "display",
           "title": "{{flpTitle}}",
           "signature": {
@@ -58,7 +58,7 @@
   "sap.ui5": {
     "flexEnabled": true,
     "dependencies": {
-      "minUI5Version": "1.124.1",
+      "minUI5Version": "1.125.1",
       "libs": {
         "sap.m": {},
         "sap.ui.core": {},
@@ -74,7 +74,7 @@
       "i18n": {
         "type": "sap.ui.model.resource.ResourceModel",
         "settings": {
-          "bundleName": "com.app.centralibrary.i18n.i18n"
+          "bundleName": "com.app.centrallibrary.i18n.i18n"
         }
       },
       "": {
@@ -174,5 +174,9 @@
   "sap.fiori": {
     "registrationIds": [],
     "archeType": "transactional"
+  },
+  "sap.cloud": {
+    "public": true,
+    "service": "centralbooklibrary"
   }
 }

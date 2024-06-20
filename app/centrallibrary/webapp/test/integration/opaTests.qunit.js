@@ -1,16 +1,16 @@
 sap.ui.require(
     [
         'sap/fe/test/JourneyRunner',
-        'com/app/centralibrary/test/integration/FirstJourney',
-		'com/app/centralibrary/test/integration/pages/BookList',
-		'com/app/centralibrary/test/integration/pages/BookObjectPage',
-		'com/app/centralibrary/test/integration/pages/ActiveLoansObjectPage'
+        'com/app/centrallibrary/test/integration/FirstJourney',
+		'com/app/centrallibrary/test/integration/pages/BookList',
+		'com/app/centrallibrary/test/integration/pages/BookObjectPage',
+		'com/app/centrallibrary/test/integration/pages/ActiveLoansObjectPage'
     ],
     function(JourneyRunner, opaJourney, BookList, BookObjectPage, ActiveLoansObjectPage) {
         'use strict';
         var JourneyRunner = new JourneyRunner({
             // start index.html in web folder
-            launchUrl: sap.ui.require.toUrl('com/app/centralibrary') + '/index.html'
+            launchUrl: sap.ui.require.toUrl('com/app/centrallibrary') + '/index.html'
         });
 
        

@@ -1,0 +1,137 @@
+<core:FragmentDefinition
+    xmlns:core="sap.ui.core"
+    xmlns:form="sap.ui.layout.form"
+    xmlns="sap.m"
+>
+    <Dialog
+        id="idhistoryDialog"
+        resizable="true"
+        draggable="true"
+        contentWidth="80%"
+        contentHeight="80%"
+        title="Active loans History"
+    >
+        <customHeader>
+            <Bar id="idbarheader">
+                <contentLeft>
+                    <Text
+                        id="idtext2his"
+                        text="History Loan closed Books Details"
+                    />
+                </contentLeft>
+                <contentRight>
+                    <Button
+                        id="onHistoryecancelbtnhis"
+                        icon="sap-icon://sys-cancel"
+                        press="onHistoryscancelbtn"
+                        type="Reject"
+                        text="close"
+                    />
+                </contentRight>
+            </Bar>
+        </customHeader>
+        <VBox
+            id="idvboxHistorye"
+            class="cancelbtn"
+            alignItems="End"
+        />
+        <VBox
+            id="idvboxHistorye1"
+            class="sapUiSmallMargin"
+            alignItems="Center"
+        >
+            <Table
+                class="Historysheader"
+                id="HistorysTable"
+                alternateRowColors="true"
+                items="{ path:'/History',  parameters : {
+            $count : true
+           
+        }}"
+            >
+                <headerToolbar>
+                    <OverflowToolbar
+                        id="HistorysTableHeader"
+                        class="Historyheader"
+                    >
+                        <Title
+                            id="idHistorysTableHeaderTitle"
+                            class="classTableHeaderTitle"
+                            text="Total History Books: {/History/$count}"
+                        />
+                    </OverflowToolbar>
+                </headerToolbar>
+                <columns>
+                    <Column id="idHistoryecolumn">
+                        <Text
+                            id="idbookisuue"
+                            text="Book Title"
+                        />
+                    </Column>
+                    <Column id="idcolumnisuueisbn">
+                        <Text
+                            id="idHistoryeisbn"
+                            text="ISBN"
+                        />
+                    </Column>
+                    <Column id="idcolumnuserid">
+                        <Text
+                            id="idtextuserid"
+                            text="User Id"
+                        />
+                    </Column>
+                    <Column id="idcolumnusername">
+                        <Text
+                            id="idtextusername"
+                            text="UserName"
+                        />
+                    </Column>
+                    <Column
+                        id="idcolumndate"
+                        class="Historyheader"
+                    >
+                        <Text
+                            id="idtextdate"
+                            text="Loan closed date"
+                        />
+                    </Column>
+                    <Column
+                        id="idcolumnavil"
+                        visible="false"
+                    >
+                        <Text
+                            id="idtextavail"
+                            text="availability "
+                        />
+                    </Column>
+                </columns>
+                <items>
+                    <ColumnListItem id="idcolumnitems">
+                        <cells>
+                            <Text
+                                id="idcelltitle"
+                                text="{books/title}"
+                            />
+                            <Text
+                                id="idcellisbn"
+                                text="{books/ISBN}"
+                            />
+                            <Text
+                                id="idcelluserid"
+                                text="{users/ID}"
+                            />
+                            <Text
+                                id="idcellusername"
+                                text="{users/Username}"
+                            />
+                            <Text
+                                id="idcellavailble"
+                                text="{loanclosedDate}"
+                            />
+                        </cells>
+                    </ColumnListItem>
+                </items>
+            </Table>
+        </VBox>
+    </Dialog>
+</core:FragmentDefinition>

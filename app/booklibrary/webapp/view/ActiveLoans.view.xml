@@ -26,6 +26,13 @@
                         text="Active Loans"
                     />
                     <ToolbarSpacer id="idTableHeaderSpacer1" />
+                     <Button
+                        id="idButhistory"
+                        icon="sap-icon://customer-history"
+                        tooltip="History"
+                        type="Emphasized"
+                        press="onpresshistory"
+                    />
                     <Button
                         id="idBtnClose"
                         icon="sap-icon://decline"
@@ -37,9 +44,8 @@
                     <Button
                         id="idBtnback"
                         icon="sap-icon://nav-back"
-                        tooltip="close"
+                        tooltip="back"
                         type="Emphasized"
-                        text="Back"
                         press="onpressBack"
                     />
                 </OverflowToolbar>
